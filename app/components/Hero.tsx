@@ -1,5 +1,5 @@
 import React from 'react'
-import image from '~/assets/pray.jpg';
+import image from 'images/pray.jpg';
 
 export const Hero = () => {
   return (
@@ -8,7 +8,7 @@ export const Hero = () => {
 <div className="relative z-20 h-screen flex items-center overflow-hidden">
     <div className="container relative flex px-6 py-16 mx-auto">
         <div className="relative z-20 flex flex-col sm:w-2/3 lg:w-2/5">
-            <span className="w-20 h-2 mb-12 bg-gray-800 dark:bg-white">
+                  <span className="w-20 h-2 mb-12 bg-gray-800 dark:bg-white">
             </span>
             <h1 className="flex flex-col text-6xl font-black leading-none text-gray-800 uppercase font-bebas-neue sm:text-8xl dark:text-white">
                 Go
