@@ -1,0 +1,8 @@
+**/*.d.t
+.cache
+dist
+build
+node_modules
+/public
+/dist
+/coverage
