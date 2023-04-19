@@ -5,15 +5,11 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node"; // or cloudflare/deno
-import styles from "./tailwind.css";
+} from '@remix-run/react';
+import type { LinksFunction } from '@remix-run/node'; // or cloudflare/deno
+import styles from './tailwind.css';
 
-
-
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: styles },
-];
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 
 export default function App() {
   return (
@@ -24,7 +20,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-white dark:bg-gray-800" >
+      <body className="bg-white dark:bg-gray-800">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

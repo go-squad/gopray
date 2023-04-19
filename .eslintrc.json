@@ -1,0 +1,30 @@
+/** @type {import('eslint').Linter.Config} */
+{
+  "root": true,
+  "plugins": [
+    "prettier",
+    "react",
+    "unicorn",
+    "import",
+    "sort-imports-es6-autofix",
+    "sonarjs"
+  ],
+  "extends": [
+    "@remix-run/eslint-config",
+    "@remix-run/eslint-config/node",
+    "prettier",
+    "plugin:unicorn/recommended"
+  ],
+  "rules": {
+    "no-console": 1, // Means warning
+    "prettier/prettier": 2 // Means error
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "unicorn/filename-case": "off"
+      }
+    }
+  ]
+}

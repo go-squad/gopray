@@ -1,12 +1,12 @@
 import React from 'react';
 import avatar from 'images/profile.png';
 
-type ListItemProps = {
+type ListItemProperties = {
   // temp
   item: any;
 };
 
-export const ListItem = ({ item }: ListItemProps) => {
+export const ListItem = ({ item }: ListItemProperties) => {
   return (
     <li className="flex flex-row">
       <div className="flex items-center flex-1 p-4 cursor-pointer select-none">
