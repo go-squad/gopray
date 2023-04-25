@@ -18,7 +18,7 @@ const Index = () => {
   const { prayers } = useLoaderData();
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <TopHeader></TopHeader>
+      <TopHeader />
       <div className="mt-16 max-w-md mx-auto">
         <List
           title="Pedidos de oração"
