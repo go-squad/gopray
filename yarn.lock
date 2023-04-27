@@ -1435,6 +1435,13 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@netlify/functions@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-1.4.0.tgz#027a2e5d54df5519ccbd14cf450231e97bbbf93a"
+  integrity sha512-gy7ULTIRroc2/jyFVGx1djCmmBMVisIwrvkqggq5B6iDcInRSy2Tpkm+V5C63hKJVkNRskKWtLQKm9ecCaQTjA==
+  dependencies:
+    is-promise "^4.0.0"
+
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"
   resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/eslint-scope-5-internals/-/eslint-scope-5-internals-5.1.1-v1.tgz#dbf733a965ca47b1973177dc0bb6c889edcfb129"
@@ -1583,6 +1590,13 @@
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/@remix-run/express/-/express-1.15.0.tgz#09fd18ad1119aab074fe1f75ad672e218ffe6db2"
   integrity sha512-mvDZB03W6NqbtyVpeiJfmGQY1L7CX+KEfSIV/kNgyK+gAMAWhsioC/Vjlo4IFY3NvOD0rh9mxuC+/IPT6Al3uw==
+  dependencies:
+    "@remix-run/node" "1.15.0"
+
+"@remix-run/netlify@^1.15.0":
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/@remix-run/netlify/-/netlify-1.15.0.tgz#cc4f152c8cfdc73c7b538e90cd3bffeb96efdc41"
+  integrity sha512-UOlszJRWMW8vdePDwU5+W2yk2x2+aCT9UtOt8AxX2FlFeKWrRb7nnfJgg6ARvr8VHOzq+JVWX40BnB9ipad8ww==
   dependencies:
     "@remix-run/node" "1.15.0"
 
@@ -4588,6 +4602,11 @@ is-plain-obj@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-4.1.0.tgz#d65025edec3657ce032fd7db63c97883eaed71f0"
   integrity sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==
+
+is-promise@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-4.0.0.tgz#42ff9f84206c1991d26debf520dd5c01042dd2f3"
+  integrity sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==
 
 is-reference@^3.0.0:
   version "3.0.1"
