@@ -19,7 +19,7 @@ export const meta: V2_MetaFunction = () => {
       charSet: 'utf8',
     },
   ];
-}; //TODO: Does not seem to be working
+}; //TODO: charSet Does not seem to be working globally
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
