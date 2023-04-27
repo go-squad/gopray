@@ -20,7 +20,7 @@ export const ListItem = ({ item }: ListItemProperties) => {
         </div>
         <div className="flex-1 pl-1 mr-16">
           <div className="font-medium text-gray-300">{item.title}</div>
-          <div className="text-sm text-gray-600">Charlie Moi</div>
+          <div className="text-sm text-gray-600">Leo Reis</div>
         </div>
         <div className="text-xs text-gray-600">6:00 AM</div>
       </div>
