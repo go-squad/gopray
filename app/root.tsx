@@ -14,12 +14,16 @@ import { AUTHENTICATED } from './models/app.constants';
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 export const meta: V2_MetaFunction = () => {
   return [
-    { title: 'Ore+' },
+    { title: 'Orem+' },
     {
-      charSet: 'utf8',
+      name: 'viewport',
+      content: 'width=device-width,initial-scale=1',
+    },
+    {
+      charset: 'utf8',
     },
   ];
-}; //TODO: charSet Does not seem to be working globally
+};
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);

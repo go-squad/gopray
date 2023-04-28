@@ -3,10 +3,6 @@ import { useLoaderData } from '@remix-run/react';
 import { List } from '../components/List';
 import { listPrayerRequests } from '../services/prayer.server';
 
-export const meta: V2_MetaFunction = () => {
-  return [{ title: 'GoPray' }];
-};
-
 export const loader = async () => {
   const prayers = await listPrayerRequests();
 
@@ -17,7 +13,7 @@ const Prayers = () => {
   const { prayers } = useLoaderData();
   return (
     <List
-      title="Pedidos de oração"
+      title="Igreja Oceânica"
       description="Lista com os últimos pedidos de oração"
       collection={prayers}
     />
