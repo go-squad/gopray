@@ -1,7 +1,7 @@
 import type { V2_MetaFunction } from '@remix-run/react';
 import { Outlet } from '@remix-run/react';
 
-export const meta: V2_MetaFunction = () => {
+export const meta: V2_MetaFunction = (value: any) => {
   return [{ title: 'Auth | Orem+' }];
 };
 
