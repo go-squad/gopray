@@ -3,7 +3,7 @@ import type {
   LoaderArgs,
   LoaderFunction,
 } from '@remix-run/node';
-import { Form, Link, useNavigation } from '@remix-run/react';
+import { Form, useNavigation } from '@remix-run/react';
 import { authenticator } from '~/services/auth.server';
 
 export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
