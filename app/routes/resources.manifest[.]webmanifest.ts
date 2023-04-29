@@ -4,15 +4,15 @@ import type { LoaderFunction } from '@remix-run/node';
 export let loader: LoaderFunction = async () => {
   return json(
     {
-      short_name: 'PWA',
-      name: 'Remix PWA',
+      short_name: 'Orem+',
+      name: 'Orem+',
       start_url: '/',
       display: 'standalone',
       background_color: '##1f2a37',
       theme_color: '#db2777',
       shortcuts: [
         {
-          name: 'Homepage',
+          name: 'prayers',
           url: '/',
           icons: [
             {
