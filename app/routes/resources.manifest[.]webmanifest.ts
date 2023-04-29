@@ -8,8 +8,8 @@ export let loader: LoaderFunction = async () => {
       name: 'Orem+',
       start_url: '/',
       display: 'standalone',
-      background_color: '##1f2a37',
-      theme_color: '#db2777',
+      background_color: '#db2777',
+      theme_color: '#0f182a',
       shortcuts: [
         {
           name: 'prayers',

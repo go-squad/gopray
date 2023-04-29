@@ -20,12 +20,22 @@ export default function App() {
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover, width=100"
+        />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
         <Meta />
         <link rel="manifest" href="/resources/manifest.webmanifest" />
         <Links />
       </head>
-      <body className="bg-white dark:bg-gray-800">
+      <body className="bg-white dark:bg-slate-900">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

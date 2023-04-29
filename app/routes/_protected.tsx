@@ -4,7 +4,7 @@ import { TopHeader } from '~/components/TopHeader';
 
 const Protected = () => {
   return (
-    <div className="mt-11 mb-16 max-w-md mx-auto">
+    <div className="mt-10 mb-4 max-w-md mx-auto">
       <TopHeader />
       <Outlet />
       <MainFooter />
