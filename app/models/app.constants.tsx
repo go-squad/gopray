@@ -1,1 +1,1 @@
-export const AUTHENTICATED = true;
+export const SESSION_SECRET = 'orem';

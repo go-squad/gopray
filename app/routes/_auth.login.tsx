@@ -1,14 +1,26 @@
-import type { LoaderFunction } from '@remix-run/node';
-import { json, redirect } from '@remix-run/node';
-import { Form, Link, useNavigation } from '@remix-run/react';
-import { AUTHENTICATED } from '~/models/app.constants';
+import type {
+  ActionFunction,
+  LoaderArgs,
+  LoaderFunction,
+} from '@remix-run/node';
+import { Form, useNavigation } from '@remix-run/react';
+import { authenticator } from '~/services/auth.server';
 
-export const loader: LoaderFunction = async ({ request }) => {
-  if (AUTHENTICATED) {
-    return redirect('/');
-  }
-  return json('ok');
+export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
+  const user = await authenticator.isAuthenticated(request, {
+    successRedirect: '/prayers',
+  });
+
+  return user;
 };
+
+export const action: ActionFunction = async ({ request }) => {
+  return authenticator.authenticate('form', request, {
+    successRedirect: '/prayers',
+    failureRedirect: '/login',
+  });
+};
+
 export const Login = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state !== 'idle';
@@ -17,11 +29,11 @@ export const Login = () => {
     <div className="min-h-screen bg-gray-800 flex flex-col justify-center sm:py-12">
       <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
         <h1 className="font-bold text-center text-2xl mb-5 text-gray-300">
-          Ore+
+          Orem+
         </h1>
         <div className="bg-slate-900 shadow w-full rounded-lg">
           <div className="px-5 py-7">
-            <Form method="post" className="form" id="auth-form">
+            <Form method="post" className="form">
               <label
                 htmlFor="email"
                 className="font-semibold text-sm text-gray-300 pb-1 block"
@@ -30,6 +42,8 @@ export const Login = () => {
               </label>
               <input
                 type="email"
+                name="email"
+                id="email"
                 className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
               <label
@@ -40,11 +54,13 @@ export const Login = () => {
               </label>
               <input
                 type="password"
+                name="password"
+                id="password"
                 className="bg-gray-800 border text-gray-100 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
               <button
                 disabled={isSubmitting}
-                type="button"
+                type="submit"
                 className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
               >
                 <span className="inline-block mr-2">
