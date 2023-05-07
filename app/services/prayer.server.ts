@@ -1,3 +1,6 @@
+import type { User, Request } from '@prisma/client';
+import { database } from './prisma.server';
+
 export function listPrayerRequests() {
   return fetch('https://jsonplaceholder.typicode.com/posts').then(response =>
     response.json()
@@ -24,4 +27,22 @@ export function postPrayerRequest(payload: PrayerPayload) {
       'Content-type': 'application/json; charset=UTF-8',
     },
   }).then(response => response.json());
+}
+
+export function createPrayerRequest({
+  body,
+  userId,
+}: Pick<Request, 'body'> & {
+  userId: User['id'];
+}) {
+  return database.request.create({
+    data: {
+      body,
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
+    },
+  });
 }

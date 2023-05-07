@@ -2,14 +2,11 @@ import { useLoaderData } from '@remix-run/react';
 import { List } from '../components/List';
 import { listPrayerRequests } from '../services/prayer.server';
 import type { LoaderFunction } from '@remix-run/node';
-import { authenticator } from '~/services/auth.server';
+import { requireUserId } from '~/services/session.server';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const prayers = await listPrayerRequests();
-
-  await authenticator.isAuthenticated(request, {
-    failureRedirect: '/login',
-  });
+  await requireUserId(request);
 
   return { prayers: prayers.slice(0, 10) };
 };
