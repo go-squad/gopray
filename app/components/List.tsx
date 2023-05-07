@@ -49,13 +49,18 @@ export const List = ({ title, description, collection }: ListProperties) => {
 
         <p className="max-w-2xl mt-1 text-sm text-gray-500">{description}</p>
       </div>
-
-      <ul className="flex flex-col divide-y divide-slate-700">
-        {collection.map((item, index) => (
-          <ListItem key={index} item={item} />
-        ))}
-        <li className="mb-16"></li>
-      </ul>
+      {collection.length === 0 ? (
+        <p className="p-4 text-gray-400">
+          Está célula não possui nenhum pedido de oração ainda.
+        </p>
+      ) : (
+        <ul className="flex flex-col w-full divide-y divide-slate-700">
+          {collection.map((item, index) => (
+            <ListItem key={index} item={item} />
+          ))}
+          <li className="mb-16"></li>
+        </ul>
+      )}
     </div>
   );
 };

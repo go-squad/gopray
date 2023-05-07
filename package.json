@@ -5,12 +5,14 @@
     "node": ">=16.20.0"
   },
   "scripts": {
+    "db": "prisma",
     "build": "run-s build:*",
     "dev": "run-p dev:*",
     "start": "cross-env NODE_ENV=production netlify dev",
     "build:css": "npm run generate:css -- --minify",
-    "setup": "prisma generate && prisma migrate deploy",
-    "migrate": "prisma migrate",
+    "db:setup": "db generate && db migrate deploy",
+    "db:pull": "db db pull && db generate",
+    "migrate": "db migrate",
     "dev:css": "npm run generate:css -- --watch",
     "dev:remix": "cross-env NODE_ENV=development remix dev",
     "generate:css": "npx tailwindcss -o ./app/tailwind.css",

@@ -7,7 +7,10 @@ import { database } from './prisma.server';
 export type { User } from '@prisma/client';
 
 export async function getUserById(id: User['id']) {
-  return database.user.findUnique({ where: { id } });
+  return database.user.findUnique({
+    where: { id },
+    select: { id: true, cellId: true, churchId: true },
+  });
 }
 
 export async function getUserByEmail(email: User['email']) {
@@ -20,6 +23,7 @@ export async function createUser(email: User['email'], password: string) {
   return database.user.create({
     data: {
       email,
+      cellId: 'fjoijasofdijoi', // Add member approval
       password: {
         create: {
           hash: hashedPassword,
