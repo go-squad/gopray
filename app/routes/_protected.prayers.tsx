@@ -4,6 +4,8 @@ import { listPrayerRequests } from '../services/prayer.server';
 import type { LoaderFunction } from '@remix-run/node';
 import { requireUser } from '~/services/session.server';
 import { getChurch } from '~/services/church.server';
+import { MainFooter } from '~/components/MainFooter';
+import { TopHeader } from '~/components/TopHeader';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request);
@@ -17,11 +19,15 @@ export const loader: LoaderFunction = async ({ request }) => {
 const Prayers = () => {
   const { prayers, church } = useLoaderData();
   return (
-    <List
-      title={church.name}
-      description="Lista com os últimos pedidos de oração"
-      collection={prayers}
-    />
+    <>
+      <TopHeader title={church.name} />
+      <List
+        title={church.name}
+        description="Lista com os últimos pedidos de oração"
+        collection={prayers}
+      />
+      <MainFooter />
+    </>
   );
 };
 
