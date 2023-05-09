@@ -5,14 +5,14 @@
     "node": ">=16.20.0"
   },
   "scripts": {
-    "db": "prisma",
+    "prisma": "prisma",
     "build": "run-s build:*",
     "dev": "run-p dev:*",
     "start": "cross-env NODE_ENV=production netlify dev",
     "build:css": "npm run generate:css -- --minify",
-    "db:setup": "db generate && db migrate deploy",
-    "db:pull": "db db pull && db generate",
-    "migrate": "db migrate",
+    "db:setup": "prisma generate && prisma migrate deploy",
+    "db:pull": "prisma db pull && prisma generate",
+    "migrate": "prisma migrate",
     "dev:css": "npm run generate:css -- --watch",
     "dev:remix": "cross-env NODE_ENV=development remix dev",
     "generate:css": "npx tailwindcss -o ./app/tailwind.css",
@@ -22,7 +22,8 @@
     "lint-staged": "lint-staged",
     "build:remix": "cross-env NODE_ENV=production remix build",
     "build:worker": "esbuild ./app/entry.worker.ts --outfile=./public/entry.worker.js --minify --bundle --format=esm --define:process.env.NODE_ENV='\"production\"'",
-    "dev:worker": "esbuild ./app/entry.worker.ts --outfile=./public/entry.worker.js --bundle --format=esm --define:process.env.NODE_ENV='\"development\"' --watch"
+    "dev:worker": "esbuild ./app/entry.worker.ts --outfile=./public/entry.worker.js --bundle --format=esm --define:process.env.NODE_ENV='\"development\"' --watch",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.17",
