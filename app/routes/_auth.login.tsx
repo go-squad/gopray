@@ -88,12 +88,12 @@ export const Login = () => {
   }, [actionData]);
 
   return (
-    <div className="min-h-screen bg-gray-800 flex flex-col justify-center sm:py-12">
-      <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
+    <div className="min-h-screen bg-gray-800 flex justify-center items-center sm:py-12">
+      <div className="flex flex-col items-center p-10 xs:p-0  w-full min-w-[300px] max-w-[500px]">
         <h1 className="font-bold text-center text-2xl mb-5 text-gray-300">
           Orem+
         </h1>
-        <div className="p-6 bg-slate-900 shadow w-full rounded-lg min-w-[400px]">
+        <div className="p-6 w-full bg-slate-900 shadow rounded-lg ">
           <Form method="post" className="form  mb-3">
             <div>
               <label
