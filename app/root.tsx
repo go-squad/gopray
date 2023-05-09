@@ -22,7 +22,7 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta
           name="viewport"
-          content="initial-scale=1, viewport-fit=cover, width=device-width"
+          content="initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, width=device-width, user-scalable=no"
         />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,52 +34,52 @@ export default function App() {
         <Meta />
         <link rel="manifest" href="/resources/manifest.webmanifest" />
         <link
-          href="assets/images/splashscreens/iphone5_splash.png"
+          href="/splashscreens/iphone5_splash.png"
           media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
           rel="apple-touch-startup-image"
         />
         <link
-          href="assets/images/splashscreens/iphone6_splash.png"
+          href="/splashscreens/iphone6_splash.png"
           media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
           rel="apple-touch-startup-image"
         />
         <link
-          href="assets/images/splashscreens/iphoneplus_splash.png"
+          href="/splashscreens/iphoneplus_splash.png"
           media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"
           rel="apple-touch-startup-image"
         />
         <link
-          href="assets/images/splashscreens/iphonex_splash.png"
+          href="/splashscreens/iphonex_splash.png"
           media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
           rel="apple-touch-startup-image"
         />
         <link
-          href="assets/images/splashscreens/iphonexr_splash.png"
+          href="/splashscreens/iphonexr_splash.png"
           media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
           rel="apple-touch-startup-image"
         />
         <link
-          href="assets/images/splashscreens/iphonexsmax_splash.png"
+          href="/splashscreens/iphonexsmax_splash.png"
           media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
           rel="apple-touch-startup-image"
         />
         <link
-          href="assets/images/splashscreens/ipad_splash.png"
+          href="/splashscreens/ipad_splash.png"
           media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
           rel="apple-touch-startup-image"
         />
         <link
-          href="assets/images/splashscreens/ipadpro1_splash.png"
+          href="/splashscreens/ipadpro1_splash.png"
           media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
           rel="apple-touch-startup-image"
         />
         <link
-          href="assets/images/splashscreens/ipadpro3_splash.png"
+          href="/splashscreens/ipadpro3_splash.png"
           media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"
           rel="apple-touch-startup-image"
         />
         <link
-          href="assets/images/splashscreens/ipadpro2_splash.png"
+          href="/splashscreens/ipadpro2_splash.png"
           media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
           rel="apple-touch-startup-image"
         />
@@ -88,20 +88,27 @@ export default function App() {
         <style>
           {`
             html {
-              height: calc(100vh + env(safe-area-inset-top));
+              height: calc(100% + env(safe-area-inset-top));
               height: -webkit-fill-available;
               width: 100%;
               padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+              touch-action: pan-x pan-y;
             }
             body {
               min-height: 100vh;
               width: 100%;
               min-height: -webkit-fill-available;
             }
+            @media (display-mode: standalone) {
+              .header-standalone {
+                padding-top: 40px;
+              }
+            }
+
           `}
         </style>
       </head>
-      <body className="bg-white dark:bg-slate-900">
+      <body className="bg-slate-900">
         <Outlet />
         <ScrollRestoration />
         <Scripts />
