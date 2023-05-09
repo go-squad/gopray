@@ -17,12 +17,20 @@ export const meta: V2_MetaFunction = () => {
 export default function App() {
   useSWEffect();
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className="h-full"
+      style={{
+        minHeight: 'calc(100% + env(safe-area-inset-top)',
+        padding:
+          'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)',
+      }}
+    >
       <head>
         <meta charSet="utf-8" />
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1.0, viewport-fit=cover, width=100"
+          content="initial-scale=1, viewport-fit=cover, width=device-width"
         />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

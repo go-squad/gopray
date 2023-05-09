@@ -1,27 +1,31 @@
-export function listPrayerRequests() {
-  return fetch('https://jsonplaceholder.typicode.com/posts').then(response =>
-    response.json()
-  );
+import type { User, Cell, Request } from '@prisma/client';
+import { database } from './prisma.server';
+
+export function listPrayerRequests({ cellId }: { cellId: Cell['id'] }) {
+  return database.request.findMany({
+    where: { cellId },
+    select: { id: true, body: true },
+    orderBy: { updatedAt: 'desc' },
+  });
 }
 
-export function getPrayerRequest(id: string) {
-  return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-    .then(response => response.json())
-    .then(json => console.log(json));
-}
-
-type PrayerPayload = {
-  title: string;
-  body: string;
-  userId: string;
-};
-
-export function postPrayerRequest(payload: PrayerPayload) {
-  return fetch('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST',
-    body: JSON.stringify(payload),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+export function createPrayerRequest({
+  body,
+  userId,
+  cellId,
+}: Pick<Request, 'body'> & {
+  userId: User['id'];
+  cellId: Cell['id'];
+}) {
+  return database.request.create({
+    data: {
+      body,
+      cellId: cellId,
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
     },
-  }).then(response => response.json());
+  });
 }

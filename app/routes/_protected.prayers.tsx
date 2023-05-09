@@ -2,26 +2,32 @@ import { useLoaderData } from '@remix-run/react';
 import { List } from '../components/List';
 import { listPrayerRequests } from '../services/prayer.server';
 import type { LoaderFunction } from '@remix-run/node';
-import { authenticator } from '~/services/auth.server';
+import { requireUser } from '~/services/session.server';
+import { getChurch } from '~/services/church.server';
+import { MainFooter } from '~/components/MainFooter';
+import { TopHeader } from '~/components/TopHeader';
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const prayers = await listPrayerRequests();
+  const user = await requireUser(request);
 
-  await authenticator.isAuthenticated(request, {
-    failureRedirect: '/login',
-  });
+  const church = await getChurch({ churchId: user.churchId });
+  const prayers = await listPrayerRequests({ cellId: user.cellId });
 
-  return { prayers: prayers.slice(0, 10) };
+  return { prayers: prayers.slice(0, 10), church };
 };
 
 const Prayers = () => {
-  const { prayers } = useLoaderData();
+  const { prayers, church } = useLoaderData();
   return (
-    <List
-      title="Igreja Oceânica"
-      description="Lista com os últimos pedidos de oração"
-      collection={prayers}
-    />
+    <>
+      <TopHeader title={church.name} />
+      <List
+        title={church.name}
+        description="Lista com os últimos pedidos de oração"
+        collection={prayers}
+      />
+      <MainFooter />
+    </>
   );
 };
 
