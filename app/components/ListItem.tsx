@@ -8,7 +8,7 @@ type ListItemProperties = {
 export const ListItem = ({ item }: ListItemProperties) => {
   return (
     <li className="flex flex-row">
-      <div className="flex items-center flex-1 p-4 cursor-pointer select-none">
+      <div className="flex w-full items-center flex-1 p-4 cursor-pointer select-none">
         <div className="flex flex-col items-center justify-center w-10 h-10 mr-4">
           <div className="relative block">
             <img

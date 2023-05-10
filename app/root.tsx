@@ -101,10 +101,10 @@ export default function App() {
             }
             @media (display-mode: standalone) {
               .h-sa {
-                height: 78px;
+                height: 80px;
               }
               .mt-sa {
-                margin-top: 5rem;
+                margin-top: 80px;
               }
             }
 
