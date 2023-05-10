@@ -101,7 +101,7 @@ export default function App() {
             }
             @media (display-mode: standalone) {
               .header-standalone {
-                padding-top: 40px;
+                padding-top: 80px;
               }
             }
 

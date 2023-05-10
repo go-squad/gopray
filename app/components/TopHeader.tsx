@@ -9,7 +9,7 @@ export const TopHeader = ({ title, isHome = true }: HeaderProperties) => {
   return (
     <div
       className="header-standalone flex justify-center  h-12 container max-w-md mx-auto px-6  font-bold text-l italic text-gray-400 
-      shadow-2xl shadow-slate-950  fixed -top-px  bg-white dark:bg-slate-900"
+      shadow-2xl shadow-slate-950  fixed -top-px  bg-slate-900 z-30"
     >
       <div className="flex justify-between items-center w-full">
         {isHome ? (
