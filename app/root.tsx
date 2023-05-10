@@ -100,8 +100,11 @@ export default function App() {
               min-height: -webkit-fill-available;
             }
             @media (display-mode: standalone) {
-              .header-standalone {
-                padding-top: 80px;
+              .h-sa {
+                height: 78px;
+              }
+              .mt-sa {
+                margin-top: 5rem;
               }
             }
 

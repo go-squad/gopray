@@ -575,6 +575,10 @@ video {
   top: -1px;
 }
 
+.top-px {
+  top: 1px;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -811,6 +815,10 @@ video {
   flex-wrap: wrap;
 }
 
+.items-end {
+  align-items: flex-end;
+}
+
 .items-center {
   align-items: center;
 }
@@ -1022,6 +1030,14 @@ video {
 
 .pt-4 {
   padding-top: 1rem;
+}
+
+.pb-\[3\%\] {
+  padding-bottom: 3%;
+}
+
+.pb-\[2\.2\%\] {
+  padding-bottom: 2.2%;
 }
 
 .text-center {
