@@ -104,7 +104,7 @@ export default function App() {
                 height: 80px;
               }
               .mt-sa {
-                margin-top: 80px;
+                margin-top: 60px;
               }
             }
 
