@@ -74,7 +74,7 @@ export const Login = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state !== 'idle';
   const [searchParameters] = useSearchParams();
-  const redirectTo = searchParameters.get('redirectTo') || '/notes';
+  const redirectTo = searchParameters.get('redirectTo') || '/prayers';
   const actionData = useActionData<typeof action>();
   const emailReference = useRef<HTMLInputElement>(null);
   const passwordReference = useRef<HTMLInputElement>(null);
