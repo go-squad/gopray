@@ -1,4 +1,4 @@
-import type { ActionArgs } from '@remix-run/node';
+import type { ActionArgs, V2_MetaFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 import { Form, useActionData } from '@remix-run/react';
 import { useEffect, useRef } from 'react';
@@ -19,6 +19,10 @@ export const action = async ({ request }: ActionArgs) => {
   await createPrayerRequest({ body, userId: user.id, cellId: user.cellId });
 
   return redirect('/');
+};
+
+export const meta: V2_MetaFunction = () => {
+  return [{ title: 'New Prayer | Orem Club' }];
 };
 
 const New = () => {

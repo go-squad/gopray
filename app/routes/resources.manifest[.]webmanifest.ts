@@ -4,11 +4,11 @@ import type { LoaderFunction } from '@remix-run/node';
 export let loader: LoaderFunction = async () => {
   return json(
     {
-      short_name: 'Orem+',
-      name: 'Orem+',
+      short_name: 'Orem Club',
+      name: 'Orem Club',
       start_url: '/',
       display: 'standalone',
-      background_color: '#db2777',
+      background_color: '#0f182a',
       theme_color: '#0f182a',
       shortcuts: [
         {

@@ -30,6 +30,7 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
   const email = formData.get('email');
   const password = formData.get('password');
   const redirectTo = safeRedirect(formData.get('redirectTo'), '/');
+  const cellId = formData.get('cellId');
 
   if (!validateEmail(email)) {
     return json(
@@ -65,7 +66,20 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
     );
   }
 
-  const user = await createUser(email, password);
+  if (!cellId || typeof cellId !== 'string') {
+    return json(
+      {
+        errors: {
+          email: null,
+          password: null,
+          cellId: 'Você precisa de um convite para fazer o cadastro.',
+        },
+      },
+      { status: 400 }
+    );
+  }
+
+  const user = await createUser(email, password, cellId);
 
   return createUserSession({
     redirectTo,
@@ -86,7 +100,7 @@ export const Signup = () => {
     <div className="min-h-screen bg-gray-800 flex flex-col justify-center sm:py-12">
       <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
         <h1 className="font-bold text-center text-2xl mb-5 text-gray-300">
-          Orem+
+          Orem Club
         </h1>
         <div className="bg-slate-900 shadow w-full rounded-lg">
           <div className="px-5 py-7">
@@ -151,7 +165,18 @@ export const Signup = () => {
                 id="confirmation"
                 className="bg-gray-800 border text-gray-100 rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
+              <input
+                type="hidden"
+                name="cellId"
+                value={searchParameters.get('invitation') || ''}
+              />
               <input type="hidden" name="redirectTo" value={redirectTo} />
+              {actionData?.errors?.cellId ? (
+                <div className="pt-1 text-red-700 mb-3" id="email-error">
+                  {actionData.errors.cellId}
+                </div>
+              ) : // eslint-disable-next-line unicorn/no-null
+              null}
               <button
                 disabled={isSubmitting}
                 type="submit"

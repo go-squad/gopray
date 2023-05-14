@@ -60,7 +60,7 @@ var DATA_CACHE = "data-cache";
 var DOCUMENT_CACHE = "document-cache";
 function debug(...messages) {
   if (true) {
-    console.debug(...messages);
+    console.warn(...messages);
   }
 }
 async function handleInstall(event) {

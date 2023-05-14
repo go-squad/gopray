@@ -7,7 +7,7 @@ export const MainFooter = () => {
       <div></div>
       <div className="w-full pt-4 mb-1">
         <Link to="/new" className="flex justify-center flex-col items-center">
-          <PlusCircleIcon className="h-6 w-6 text-gray-400 mb-1" />
+          <PlusCircleIcon className="h-7 w-7 text-gray-400 mb-1" />
           <span className="font-light text-xs">Motivo</span>
         </Link>
       </div>

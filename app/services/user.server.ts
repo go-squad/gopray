@@ -17,13 +17,17 @@ export async function getUserByEmail(email: User['email']) {
   return database.user.findUnique({ where: { email } });
 }
 
-export async function createUser(email: User['email'], password: string) {
+export async function createUser(
+  email: User['email'],
+  password: string,
+  cellId: string
+) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   return database.user.create({
     data: {
       email,
-      cellId: 'fjoijasofdijoi', // Add member approval
+      cellId,
       password: {
         create: {
           hash: hashedPassword,

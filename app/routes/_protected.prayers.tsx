@@ -1,7 +1,7 @@
 import { useLoaderData } from '@remix-run/react';
 import { List } from '../components/List';
 import { listPrayerRequests } from '../services/prayer.server';
-import type { LoaderFunction } from '@remix-run/node';
+import type { LoaderFunction, V2_MetaFunction } from '@remix-run/node';
 import { requireUser } from '~/services/session.server';
 import { getChurch } from '~/services/church.server';
 import { MainFooter } from '~/components/MainFooter';
@@ -14,6 +14,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   const prayers = await listPrayerRequests({ cellId: user.cellId });
 
   return { prayers: prayers.slice(0, 10), church };
+};
+
+export const meta: V2_MetaFunction = () => {
+  return [{ title: 'Prayers | Orem Club' }];
 };
 
 const Prayers = () => {

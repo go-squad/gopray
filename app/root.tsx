@@ -10,10 +10,12 @@ import {
 } from '@remix-run/react';
 import type { LinksFunction } from '@remix-run/node'; // or cloudflare/deno
 import styles from './tailwind.css';
+
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 export const meta: V2_MetaFunction = () => {
-  return [{ title: 'Orem+' }];
+  return [{ title: 'Orem Club' }];
 };
+
 export default function App() {
   useSWEffect();
   return (
@@ -98,13 +100,14 @@ export default function App() {
               min-height: 100vh;
               width: 100%;
               min-height: -webkit-fill-available;
+              border: 1px solid transparent;
             }
             @media (display-mode: standalone) {
               .h-sa {
-                height: 80px;
+                height: 100px;
               }
               .mt-sa {
-                margin-top: 60px;
+                margin-top: 70px;
               }
             }
 

@@ -13,7 +13,8 @@ const DOCUMENT_CACHE = 'document-cache';
 
 function debug(...messages: any[]) {
   if (process.env.NODE_ENV === 'development') {
-    console.debug(...messages);
+    // eslint-disable-next-line no-console
+    console.warn(...messages);
   }
 }
 
