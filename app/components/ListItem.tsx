@@ -8,9 +8,9 @@ type ListItemProperties = {
 
 export const ListItem = ({ item }: ListItemProperties) => {
   return (
-    <li className="flex mb-2">
+    <li className="flex mb-2 pr-2">
       <div className="timeline flex flex-col">
-        <div className="avatar relative block p-4">
+        <div className="avatar relative block p-4 pl-3">
           <img
             alt="profile"
             src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
@@ -25,12 +25,12 @@ export const ListItem = ({ item }: ListItemProperties) => {
         </div>
       </div>
       <div className="prayerContent flex flex-col flex-1">
-        <div className="prayer-card bg-sky-950 flex flex-col p-4 pr-12 rounded mb-1">
+        <div className="prayer-card bg-sky-950 flex flex-col p-4 pb-2 pr-12 rounded mb-1">
           <div className="user-info text-xs text-gray-400 mb-1">
             <b className="text-gray-400">Arthur Junior</b> •{' '}
             <span>célula 128</span>
           </div>
-          <div className="font-medium text-base text-gray-100 mb-6">
+          <div className="font-medium text-base text-gray-100 mb-4">
             {item.body}
           </div>
           <div className="prayer-button">
@@ -58,7 +58,7 @@ export const ListItem = ({ item }: ListItemProperties) => {
               alt="avatar 3"
             />
           </div>
-          <div>
+          <div className="flex-1">
             <b className="text-gray-300">Charles Lopes </b>
             <span> e outras</span>
             <b className="text-gray-300"> 122 </b>
