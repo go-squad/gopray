@@ -97,7 +97,7 @@ export const Signup = () => {
   const actionData = useActionData<typeof action>();
 
   return (
-    <div className="min-h-screen bg-gray-800 flex flex-col justify-center sm:py-12">
+    <div className="min-h-full bg-gray-800 flex flex-col justify-center sm:py-12">
       <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
         <h1 className="font-bold text-center text-2xl mb-5 text-gray-300">
           Orem Club

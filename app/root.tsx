@@ -1,5 +1,5 @@
 import { useSWEffect } from '~/utils/client/sw-hook';
-import type { V2_MetaFunction } from '@remix-run/react';
+import { Link, V2_MetaFunction } from '@remix-run/react';
 import {
   Links,
   LiveReload,
@@ -14,6 +14,46 @@ import styles from './tailwind.css';
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 export const meta: V2_MetaFunction = () => {
   return [{ title: 'Orem Club' }];
+};
+
+export const ErrorBoundary = ({ error }: { error: Error }) => {
+  console.error(error);
+  return (
+    <html className="flex justify-center items-center h-full">
+      <head>
+        <title className="text-gray-300">Oh no!</title>
+        <meta charSet="utf-8" />
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, width=device-width, user-scalable=no"
+        />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+        <Meta />
+        <link rel="manifest" href="/resources/manifest.webmanifest" />
+        <Meta />
+        <Links />
+      </head>
+      <body className="flex justify-center items-center bg-slate-900 h-full">
+        <div className="flex flex-col items-center">
+          <h1 className="text-xl text-gray-200">Opps!</h1>
+          <p className="text-xs text-gray-400 mb-2">
+            Tente novamente mais tarde :(
+          </p>
+          <Link className="text-xs text-blue-400" to="/">
+            <span>voltar ao início {'>'}</span>
+          </Link>
+        </div>
+        <p>{error?.message}</p>
+        <Scripts />
+      </body>
+    </html>
+  );
 };
 
 export default function App() {
@@ -35,6 +75,7 @@ export default function App() {
         />
         <Meta />
         <link rel="manifest" href="/resources/manifest.webmanifest" />
+
         <link
           href="/splashscreens/iphone5_splash.png"
           media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
@@ -114,7 +155,7 @@ export default function App() {
           `}
         </style>
       </head>
-      <body className="bg-slate-900">
+      <body className="bg-slate-900 h-full">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

@@ -1,5 +1,4 @@
-import { HandRaisedIcon } from '@heroicons/react/24/solid';
-import React from 'react';
+import React, { useState } from 'react';
 
 type ListItemProperties = {
   // temp
@@ -7,8 +6,14 @@ type ListItemProperties = {
 };
 
 export const ListItem = ({ item }: ListItemProperties) => {
+  const [isItemSaved, setIsItemSaved] = useState(false);
+
+  const handleClick = () => {
+    setIsItemSaved(state => !state);
+  };
+
   return (
-    <li className="flex mb-2 pr-2">
+    <li className="flex mb-2 pr-4">
       <div className="timeline flex flex-col">
         <div className="avatar relative block p-4 pl-3">
           <img
@@ -25,18 +30,26 @@ export const ListItem = ({ item }: ListItemProperties) => {
         </div>
       </div>
       <div className="prayerContent flex flex-col flex-1">
-        <div className="prayer-card bg-sky-950 flex flex-col p-4 pb-2 pr-12 rounded mb-1">
+        <div
+          className={`transition duration-300 ease-out prayer-card bg-sky-950 flex flex-col p-4 pb-4 pr-12 rounded-md mb-1 ${
+            isItemSaved ? 'shadow-glow' : ''
+          }`}
+        >
           <div className="user-info text-xs text-gray-400 mb-1">
             <b className="text-gray-400">Arthur Junior</b> •{' '}
             <span>célula 128</span>
           </div>
-          <div className="font-medium text-base text-gray-100 mb-4">
-            {item.body}
-          </div>
+          <div className={`text-base text-gray-100 mb-5`}>{item.body}</div>
           <div className="prayer-button">
-            <span className="text-xs text-gray-400 flex items-center">
+            <button
+              className="text-xs text-gray-400 flex items-center"
+              type="button"
+              onClick={() => handleClick()}
+            >
               <svg
-                className="h-4 w-4 fill-gray-400 mb-1 mr-2"
+                className={`h-5 w-5  mb-px mr-1 ${
+                  isItemSaved ? 'fill-sky-500' : 'fill-gray-400'
+                }`}
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 492.388 492.388"
@@ -58,29 +71,24 @@ export const ListItem = ({ item }: ListItemProperties) => {
                   />
                 </g>
               </svg>
-              Orar por isso
-            </span>
+              <span className={isItemSaved ? 'text-sky-500' : ''}>Orar</span>
+            </button>
           </div>
         </div>
-        <div className="praying-count flex items-center text-xs text-gray-400 p-4 pt-2 mb-4">
+        <div className="praying-count flex items-start text-xs text-gray-400 p-4 pt-2 mb-4">
           <div className="flex -space-x-2 mr-2">
             <img
-              className="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-gray-800"
+              className="inline-block h-5 w-5 rounded-full ring-2 ring-gray-800"
               src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
               alt="avatar1"
             />
             <img
-              className="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-gray-800"
+              className="inline-block h-5 w-5 rounded-full ring-2 ring-gray-800"
               src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
               alt="avatar 2"
             />
-            <img
-              className="inline-block h-6 w-6 rounded-full ring-2 ring-white dark:ring-gray-800"
-              src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80"
-              alt="avatar 3"
-            />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 pt-[2px]">
             <b className="text-gray-300">Charles Lopes </b>
             <span> e outras</span>
             <b className="text-gray-300"> 122 </b>
