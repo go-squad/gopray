@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import fallback from '../assets/images/pray.jpg';
 
 type ListItemProperties = {
   // temp
@@ -18,7 +19,7 @@ export const ListItem = ({ item }: ListItemProperties) => {
         <div className="avatar relative block p-4 pl-3">
           <img
             alt="profile"
-            src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
+            src={item.avatarUrl || fallback}
             className="mx-auto object-cover rounded-full h-10 w-10 "
           />
         </div>
@@ -36,8 +37,10 @@ export const ListItem = ({ item }: ListItemProperties) => {
           }`}
         >
           <div className="user-info text-xs text-gray-400 mb-1">
-            <b className="text-gray-400">Arthur Junior</b> •{' '}
-            <span>célula 128</span>
+            <b className="text-gray-400" title={item.email}>
+              {item.username}
+            </b>{' '}
+            • <span>célula {item.cell}</span>
           </div>
           <div className={`text-base text-gray-100 mb-5`}>{item.body}</div>
           <div className="prayer-button">

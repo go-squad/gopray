@@ -9,11 +9,10 @@ import { TopHeader } from '~/components/TopHeader';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request);
-
   const church = await getChurch({ churchId: user.churchId });
   const prayers = await listPrayerRequests({ cellId: user.cellId });
 
-  return { prayers: prayers.slice(0, 10), church };
+  return { prayers: prayers?.slice(0, 10), church };
 };
 
 export const meta: V2_MetaFunction = () => {
@@ -22,6 +21,7 @@ export const meta: V2_MetaFunction = () => {
 
 const Prayers = () => {
   const { prayers, church } = useLoaderData();
+
   return (
     <>
       <TopHeader title={church.name} />

@@ -20,7 +20,7 @@ startTransition(() => {
 if ('serviceWorker' in navigator) {
   // Use the window load event to keep the page load performant
   async function loadSW() {
-    console.log('loaded');
+    console.log('Service Worker Loaded');
 
     return navigator.serviceWorker
       .register('/entry.worker.js')

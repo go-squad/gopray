@@ -1,13 +1,43 @@
 import type { User, Cell, Request } from '@prisma/client';
 import { database } from './prisma.server';
+import { getUserById } from './user.server';
+import { getCellById } from './cell.server';
 
-export function listPrayerRequests({ cellId }: { cellId: Cell['id'] }) {
-  return database.request.findMany({
-    where: { cellId },
-    select: { id: true, body: true },
-    orderBy: { updatedAt: 'desc' },
-  });
-}
+export const listPrayerRequests = async ({
+  cellId,
+}: {
+  cellId: Cell['id'];
+}) => {
+  try {
+    let requests = await database.request.findMany({
+      where: { cellId },
+      select: {
+        id: true,
+        body: true,
+        userId: true,
+      },
+      orderBy: { updatedAt: 'desc' },
+    });
+
+    const prayers = [];
+    for (const request of requests) {
+      const user = await getUserById(request.userId);
+      const cell = await getCellById(cellId);
+
+      prayers.push({
+        ...request,
+        username: user?.displayName,
+        avatarUrl: user?.avatarUrl,
+        cell: cell?.name,
+      });
+    }
+
+    return prayers;
+  } catch (error) {
+    console.error('Error retrieving requests:', error);
+    throw error;
+  }
+};
 
 export function createPrayerRequest({
   body,

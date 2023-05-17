@@ -9,7 +9,14 @@ export type { User } from '@prisma/client';
 export async function getUserById(id: User['id']) {
   return database.user.findUnique({
     where: { id },
-    select: { id: true, cellId: true, churchId: true, email: true },
+    select: {
+      id: true,
+      cellId: true,
+      churchId: true,
+      email: true,
+      displayName: true,
+      avatarUrl: true,
+    },
   });
 }
 

@@ -8,14 +8,21 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  cellId    String
-  churchId  String    @default("idigrejaoceanica")
-  password  Password?
-  requests  Request[]
+  id          String        @id @default(cuid())
+  email       String        @unique
+  givenName   String?
+  surname     String?
+  displayName String?
+  avatarUrl   String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  cellId      String
+  churchId    String        @default("idigrejaoceanica")
+  password    Password?
+  requests    Request[]
+  cell        Cell          @relation(fields: [cellId], references: [id])
+  Church      Church        @relation(fields: [churchId], references: [id])
+  RequestPray RequestPray[]
 }
 
 model Password {
@@ -25,13 +32,14 @@ model Password {
 }
 
 model Request {
-  id        String   @id @default(cuid())
-  body      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    String
-  cellId    String?
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id          String        @id @default(cuid())
+  body        String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  userId      String
+  cellId      String?
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  RequestPray RequestPray[]
 }
 
 model Cell {
@@ -39,6 +47,7 @@ model Cell {
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  user      User[]
 }
 
 model Church {
@@ -46,4 +55,15 @@ model Church {
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  user      User[]
+}
+
+model RequestPray {
+  id        Int     @id @default(autoincrement())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  request   Request @relation(fields: [requestId], references: [id])
+  requestId String
+
+  @@unique([userId, requestId])
 }
