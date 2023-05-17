@@ -15,6 +15,7 @@ export const listPrayerRequests = async ({
         id: true,
         body: true,
         userId: true,
+        createdAt: true,
       },
       orderBy: { updatedAt: 'desc' },
     });
@@ -28,6 +29,8 @@ export const listPrayerRequests = async ({
         ...request,
         username: user?.displayName,
         avatarUrl: user?.avatarUrl,
+        givenName: user?.givenName,
+        surname: user?.surname,
         cell: cell?.name,
       });
     }

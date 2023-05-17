@@ -41,7 +41,7 @@ const Profile = () => {
   return (
     <>
       <TopHeader title={'Perfil'} isHome={false} />
-      <div className="h-full container">
+      <div className="h-full container p-4">
         <p className="text-gray-600 text-center">
           <span>user: {user.email} </span>
         </p>
@@ -64,7 +64,7 @@ const Profile = () => {
           <textarea
             className="resize-none bg-gray-800 text-gray-100 border rounded-lg px-3 py-3 mt-1 mb-5 text-sm w-full min-height"
             value={invitationTemplate}
-            rows={3}
+            rows={4}
             readOnly
           ></textarea>
 

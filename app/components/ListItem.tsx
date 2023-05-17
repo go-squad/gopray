@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import fallback from '../assets/images/pray.jpg';
+import ReactTimeAgo from 'react-time-ago';
+import { ClockIcon } from '@heroicons/react/24/solid';
 
 type ListItemProperties = {
   // temp
@@ -8,6 +10,19 @@ type ListItemProperties = {
 
 export const ListItem = ({ item }: ListItemProperties) => {
   const [isItemSaved, setIsItemSaved] = useState(false);
+  const [avatar, setAvatar] = useState('');
+
+  useEffect(() => {
+    if (item?.avatarUrl) {
+      setAvatar(item.avatar);
+    } else if (item?.givenName && item?.surname) {
+      setAvatar(`${item.givenName.charAt(0)}${item.surname.charAt(0)}`);
+    } else if (item?.username) {
+      setAvatar(`${item?.username.charAt(0)}`);
+    } else {
+      setAvatar(`${item?.email?.charAt(0)}`);
+    }
+  }, [item]);
 
   const handleClick = () => {
     setIsItemSaved(state => !state);
@@ -16,31 +31,38 @@ export const ListItem = ({ item }: ListItemProperties) => {
   return (
     <li className="flex mb-2 pr-4">
       <div className="timeline flex flex-col">
-        <div className="avatar relative block p-4 pl-3">
-          <img
-            alt="profile"
-            src={item.avatarUrl || fallback}
-            className="mx-auto object-cover rounded-full h-10 w-10 "
-          />
+        <div className="avatar relative block p-3">
+          {item.avatarUrl ? (
+            <img
+              alt="profile"
+              src={item.avatarUrl || fallback}
+              className="mx-auto object-cover rounded-full h-10 w-10 "
+            />
+          ) : (
+            <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600">
+              <span className="font-medium text-gray-300">{avatar}</span>
+            </div>
+          )}
         </div>
-        <div className="time-ago flex flex-col items-center text-xs text-gray-400">
-          <span className="text-sm">
-            <b>2h</b>
-          </span>
-          <span>atrás</span>
+        <div className="time-ago flex flex-col items-center text-xs text-gray-400 max-w-[60px]">
+          <ClockIcon className="h-5 w-5 mb-2" />
+          <ReactTimeAgo
+            className="text-center text-xs"
+            timeStyle="round-minute"
+            date={new Date(item.createdAt)}
+            locale="pt-Br"
+          />
         </div>
       </div>
       <div className="prayerContent flex flex-col flex-1">
         <div
-          className={`transition duration-300 ease-out prayer-card bg-sky-950 flex flex-col p-4 pb-4 pr-12 rounded-md mb-1 ${
+          className={`prayer-card min-h-[130px] transition duration-300 ease-out  bg-sky-950 flex flex-col p-4 pb-4 pr-12 rounded-md mb-1 ${
             isItemSaved ? 'shadow-glow' : ''
           }`}
         >
           <div className="user-info text-xs text-gray-400 mb-1">
-            <b className="text-gray-400" title={item.email}>
-              {item.username}
-            </b>{' '}
-            • <span>célula {item.cell}</span>
+            <b className="text-gray-400">{item.username}</b> •{' '}
+            <span>célula {item.cell}</span>
           </div>
           <div className={`text-base text-gray-100 mb-5`}>{item.body}</div>
           <div className="prayer-button">

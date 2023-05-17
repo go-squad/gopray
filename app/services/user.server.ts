@@ -15,6 +15,8 @@ export async function getUserById(id: User['id']) {
       churchId: true,
       email: true,
       displayName: true,
+      givenName: true,
+      surname: true,
       avatarUrl: true,
     },
   });
@@ -35,6 +37,7 @@ export async function createUser(
     data: {
       email,
       cellId,
+      displayName: email.split('@')[0],
       password: {
         create: {
           hash: hashedPassword,
