@@ -11,6 +11,14 @@ import {
 import type { LinksFunction } from '@remix-run/node'; // or cloudflare/deno
 import styles from './tailwind.css';
 
+import TimeAgo from 'javascript-time-ago';
+
+import en from 'javascript-time-ago/locale/en.json';
+import pt from 'javascript-time-ago/locale/pt.json';
+
+TimeAgo.addDefaultLocale(en);
+TimeAgo.addLocale(pt);
+
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
 export const meta: V2_MetaFunction = () => {
   return [{ title: 'Orem Club' }];
