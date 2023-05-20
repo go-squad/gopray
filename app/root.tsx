@@ -1,5 +1,6 @@
 import { useSWEffect } from '~/utils/client/sw-hook';
-import { Link, V2_MetaFunction } from '@remix-run/react';
+import type { V2_MetaFunction } from '@remix-run/react';
+import { Link } from '@remix-run/react';
 import {
   Links,
   LiveReload,
@@ -12,11 +13,8 @@ import type { LinksFunction } from '@remix-run/node'; // or cloudflare/deno
 import styles from './tailwind.css';
 
 import TimeAgo from 'javascript-time-ago';
-
-import en from 'javascript-time-ago/locale/en.json';
 import pt from 'javascript-time-ago/locale/pt.json';
 
-TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(pt);
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];

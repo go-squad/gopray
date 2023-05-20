@@ -26,6 +26,17 @@ export async function getUserByEmail(email: User['email']) {
   return database.user.findUnique({ where: { email } });
 }
 
+export async function editUser(userId: string, displayName: string) {
+  return await database.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      displayName,
+    },
+  });
+}
+
 export async function createUser(
   email: User['email'],
   password: string,

@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/no-null */
+import { BookOpenIcon } from '@heroicons/react/24/solid';
 import type {
   ActionArgs,
   ActionFunction,
@@ -14,6 +15,7 @@ import {
   useSearchParams,
 } from '@remix-run/react';
 import { useEffect, useRef } from 'react';
+import OremLogo from '~/components/OremLogo';
 import { createUserSession, getUserId } from '~/services/session.server';
 import { verifyLogin } from '~/services/user.server';
 import { safeRedirect } from '~/utils/server/safe-redirect';
@@ -91,7 +93,7 @@ export const Login = () => {
     <div className="min-h-full h-full w-full bg-gray-800 flex justify-center items-center sm:py-12">
       <div className="flex flex-col items-center p-10 xs:p-0  w-full min-w-[300px] max-w-[500px]">
         <h1 className="font-bold text-center text-2xl mb-5 text-gray-300">
-          Orem Club
+          <OremLogo />
         </h1>
         <div className="p-6 w-full bg-slate-900 shadow rounded-lg ">
           <Form method="post" className="form  mb-3">
@@ -112,7 +114,7 @@ export const Login = () => {
                 autoComplete="email"
                 aria-invalid={actionData?.errors?.email ? true : undefined}
                 aria-describedby="email-error"
-                className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+                className="bg-transparent text-gray-100 border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
               {actionData?.errors?.email ? (
                 <div className="pt-1 text-red-700" id="email-error">
@@ -222,6 +224,17 @@ export const Login = () => {
               </div>
             </div>
           </div> */}
+        </div>
+        <div className="flex flex-col items-center">
+          <BookOpenIcon className="text-gray-400 w-8 mt-6" />
+          <p className="p-px text-sm text-center italic text-gray-400 mt-3 mb-2">
+            Não deixemos de reunir-nos como igreja, segundo o costume de alguns,
+            mas procuremos encorajar-nos uns aos outros, ainda mais quando vocês
+            veem que se aproxima o Dia.
+          </p>
+          <span className="text-sm font-bold text-gray-300">
+            Hebreus 10:24-25
+          </span>
         </div>
       </div>
     </div>

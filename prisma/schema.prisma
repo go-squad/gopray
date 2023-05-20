@@ -67,6 +67,7 @@ model RequestPray {
   userId    String
   request   Request @relation(fields: [requestId], references: [id])
   requestId String
+  createdAt DateTime @default(now())
 
   @@unique([userId, requestId])
 }

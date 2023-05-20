@@ -2,6 +2,7 @@ import type { User, Cell, Request } from '@prisma/client';
 import { database } from './prisma.server';
 import { getUserById } from './user.server';
 import { getCellById } from './cell.server';
+import { getRequestSavedStatusById } from './request-pray.server';
 
 export const listPrayerRequests = async ({
   cellId,
@@ -24,6 +25,10 @@ export const listPrayerRequests = async ({
     for (const request of requests) {
       const user = await getUserById(request.userId);
       const cell = await getCellById(cellId);
+      const isSaved = await getRequestSavedStatusById(
+        request.userId,
+        request.id
+      );
 
       prayers.push({
         ...request,
@@ -32,6 +37,7 @@ export const listPrayerRequests = async ({
         givenName: user?.givenName,
         surname: user?.surname,
         cell: cell?.name,
+        saved: isSaved,
       });
     }
 
