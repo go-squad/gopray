@@ -19,9 +19,12 @@ import {
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request);
   const church = await getChurch({ churchId: user.churchId });
-  const prayers = await listPrayerRequests({ cellId: user.cellId });
+  const prayers = await listPrayerRequests({
+    cellId: user.cellId,
+    loggedUserId: user.id,
+  });
 
-  return { prayers: prayers?.slice(0, 10), church };
+  return { prayers: prayers?.slice(0, 10), church, user };
 };
 
 export const action = async ({ request }: ActionArgs) => {
@@ -50,7 +53,7 @@ export const meta: V2_MetaFunction = () => {
 };
 
 const Prayers = () => {
-  const { prayers, church } = useLoaderData();
+  const { prayers, church, user } = useLoaderData();
 
   return (
     <>
@@ -59,6 +62,7 @@ const Prayers = () => {
         title={church.name}
         description="Lista com os últimos pedidos de oração"
         collection={prayers}
+        user={user}
       />
       <MainFooter />
     </>

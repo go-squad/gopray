@@ -70,7 +70,7 @@ const New = () => {
                       autoFocus={true}
                       name="body"
                       maxLength={maxTextAreaCount}
-                      placeholder="Qual seria o seu pedido de oração?"
+                      placeholder="Escreva aqui seu pedido de oraçao ou agradecimento..."
                       ref={bodyReference}
                       rows={8}
                       className="resize-none bg-transparent height-100 min-h-full text-md text-white block rounded-lg w-full placeholder-gray-400 focus:placeholder-gray-500 focus:bg-transparent focus:outline-none"

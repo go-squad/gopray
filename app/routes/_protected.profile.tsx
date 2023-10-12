@@ -1,9 +1,10 @@
 import {
   ClipboardDocumentCheckIcon,
   ClipboardDocumentListIcon,
+  PaperAirplaneIcon,
 } from '@heroicons/react/24/solid';
 import type { LoaderFunction, V2_MetaFunction } from '@remix-run/node';
-import { Form, useActionData, useLoaderData } from '@remix-run/react';
+import { Form, Link, useActionData, useLoaderData } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import { TopHeader } from '~/components/TopHeader';
 import { requireUser } from '~/services/session.server';
@@ -138,9 +139,10 @@ const Profile = () => {
             readOnly
           ></textarea>
 
+
           <button
             type="button"
-            className="absolute flex right-3 -bottom-1 items-center"
+            className="absolute flex left-3 -bottom-1 items-center"
             onClick={handleCopyClick}
           >
             {isCopied ? (
@@ -155,6 +157,15 @@ const Profile = () => {
               </>
             )}
           </button>
+          <a
+            className="flex items-center absolute right-3 -bottom-1"
+            href={`https://web.whatsapp.com/send/?text=${invitationTemplate}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <PaperAirplaneIcon className="h-4 w-4 text-gray-400 mr-1" />
+            <span className="text-gray-400">Convidar</span>
+          </a>
         </div>
       </div>
       <MainFooter />

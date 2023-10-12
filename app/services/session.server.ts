@@ -9,6 +9,7 @@ export async function getSession(request: Request) {
   const cookie = request.headers.get('Cookie');
   return sessionStorage.getSession(cookie);
 }
+
 invariant(process.env.SESSION_SECRET, 'SESSION_SECRET must be set');
 
 const sessionStorage = createCookieSessionStorage({
@@ -28,6 +29,12 @@ export async function getUserId(
   const session = await getSession(request);
   const userId = session.get(USER_SESSION_KEY);
   return userId;
+}
+
+export async function getLoggedUser() {
+  const session = await sessionStorage.getSession();
+  const user = session.get(USER_SESSION_KEY);
+  return user;
 }
 
 export async function requireUserId(
