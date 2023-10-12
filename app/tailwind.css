@@ -587,6 +587,10 @@ video {
   right: 0.75rem;
 }
 
+.left-3 {
+  left: 0.75rem;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -823,10 +827,6 @@ video {
 
 .max-w-\[58px\] {
   max-width: 58px;
-}
-
-.max-w-\[60px\] {
-  max-width: 60px;
 }
 
 .max-w-md {
@@ -1281,11 +1281,6 @@ video {
 .text-gray-500 {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
-}
-
-.text-gray-600 {
-  --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
 .text-gray-700 {

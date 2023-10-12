@@ -6,8 +6,10 @@ import { getRequestSavedStatusById } from './request-pray.server';
 
 export const listPrayerRequests = async ({
   cellId,
+  loggedUserId,
 }: {
   cellId: Cell['id'];
+  loggedUserId: User['id'];
 }) => {
   try {
     let requests = await database.request.findMany({
@@ -17,6 +19,7 @@ export const listPrayerRequests = async ({
         body: true,
         userId: true,
         createdAt: true,
+        prayingCount: true,
       },
       orderBy: { updatedAt: 'desc' },
     });
@@ -25,10 +28,7 @@ export const listPrayerRequests = async ({
     for (const request of requests) {
       const user = await getUserById(request.userId);
       const cell = await getCellById(cellId);
-      const isSaved = await getRequestSavedStatusById(
-        request.userId,
-        request.id
-      );
+      const isSaved = await getRequestSavedStatusById(loggedUserId, request.id);
 
       prayers.push({
         ...request,

@@ -3,13 +3,15 @@ import fallback from '../assets/images/pray.jpg';
 import ReactTimeAgo from 'react-time-ago';
 import { ClockIcon } from '@heroicons/react/24/solid';
 import { Form, useNavigation } from '@remix-run/react';
+import type { User } from '@prisma/client';
 
 type ListItemProperties = {
   // temp
   item: any;
+  user: User;
 };
 
-export const ListItem = ({ item }: ListItemProperties) => {
+export const ListItem = ({ item, user }: ListItemProperties) => {
   const [isItemSaved, setIsItemSaved] = useState(item?.saved);
   const [avatar, setAvatar] = useState('');
   const navigation = useNavigation();
@@ -74,7 +76,7 @@ export const ListItem = ({ item }: ListItemProperties) => {
                 type="hidden"
                 name="userId"
                 id="userId"
-                value={item.userId}
+                value={user?.id}
                 readOnly
               />
               <input
@@ -127,25 +129,29 @@ export const ListItem = ({ item }: ListItemProperties) => {
             </Form>
           </div>
         </div>
-        <div className="praying-count flex items-start text-xs text-gray-400 p-4 pt-2 mb-4">
-          <div className="flex -space-x-2 mr-2">
-            <img
-              className="inline-block h-5 w-5 rounded-full ring-2 ring-gray-800"
-              src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-              alt="avatar1"
-            />
-            <img
-              className="inline-block h-5 w-5 rounded-full ring-2 ring-gray-800"
-              src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-              alt="avatar 2"
-            />
-          </div>
-          <div className="flex-1 pt-[2px]">
-            <b className="text-gray-300">Charles Lopes </b>
-            <span> e outras</span>
-            <b className="text-gray-300"> 122 </b>
-            <span> pessoas orando.</span>
-          </div>
+        <div className="mb-4">
+          {item?.prayingCount < 2 ? undefined : (
+            <div className="praying-count flex items-start text-xs text-gray-400 ph-4 pt-2">
+              <div className="flex -space-x-2 mr-2">
+                <img
+                  className="inline-block h-5 w-5 rounded-full ring-2 ring-gray-800"
+                  src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+                  alt="avatar1"
+                />
+                <img
+                  className="inline-block h-5 w-5 rounded-full ring-2 ring-gray-800"
+                  src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+                  alt="avatar 2"
+                />
+              </div>
+              <div className="flex-1 pt-[2px]">
+                <b className="text-gray-300">Charles Lopes </b>
+                <span> e outras</span>
+                <b className="text-gray-300"> {item?.prayingCount || 0} </b>
+                <span> pessoas orando.</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </li>
