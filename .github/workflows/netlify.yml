@@ -17,8 +17,6 @@ jobs:
 
   build:
     runs-on: ubuntu-22.04
-    if: github.event.inputs.run_migrations == 'true'
-    needs: run-migration
 
     steps:
       - uses: actions/checkout@v3
