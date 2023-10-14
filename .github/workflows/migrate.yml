@@ -1,37 +1,15 @@
 name: Prisma Migrate
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - './prisma/**/*.*'
   workflow_dispatch:
-    branches: [main]
 
 jobs:
-  install:
+  main:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Nodejs
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-          cache: 'yarn'
-
-      - name: Install
-        run: yarn install
-      - name: Rerun Install
-        run: yarn install
-
-  generate:
-    runs-on: ubuntu-latest
-
-    needs: install
-
-    steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
       - name: Setup Nodejs
         uses: actions/setup-node@v2
@@ -39,32 +17,14 @@ jobs:
           node-version: 16.x
           cache: 'yarn'
 
-      - name: Install
+      - name: Install Dependencies
         run: yarn install
 
-      - run: rm -rf node_modules/.prisma
+      - name: Remove Previous Prisma Client
+        run: rm -rf node_modules/.prisma
 
       - name: Generate Prisma Client
         run: npx prisma generate
-
-  migrate:
-    runs-on: ubuntu-latest
-
-    needs: install
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup Nodejs
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-          cache: 'yarn'
-
-      - name: Install
-        run: yarn install
-
-      - run: rm -rf node_modules/.prisma
 
       - name: Deploy Migrations
         run: npx prisma migrate deploy
