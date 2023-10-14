@@ -2,6 +2,7 @@ name: Prisma Migrate
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   main:
