@@ -16,13 +16,10 @@ jobs:
 
   build:
     runs-on: ubuntu-22.04
+    needs: run-migrations
+
     steps:
       - uses: actions/checkout@v3
-
-      - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v2
-        with:
-          event-type: deploy
 
       # ( Build to ./dist or other directory... )
 
