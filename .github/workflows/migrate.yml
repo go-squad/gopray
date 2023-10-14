@@ -3,6 +3,9 @@ name: Prisma Migrate
 on:
   workflow_dispatch:
 
+  repository_dispatch:
+    types: [deploy]
+
 jobs:
   main:
     runs-on: ubuntu-latest
