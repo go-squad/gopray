@@ -139,7 +139,6 @@ const Profile = () => {
             readOnly
           ></textarea>
 
-
           <button
             type="button"
             className="absolute flex left-3 -bottom-1 items-center"
