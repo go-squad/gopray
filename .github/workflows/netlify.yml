@@ -3,8 +3,18 @@ name: Build and Deploy to Netlify
 
 on:
   workflow_dispatch:
+    inputs:
+      run_migrations:
+        description: 'Run db migrations?'
+        required: true
+        default: true
+        type: boolean
 
 jobs:
+  run-migration:
+    if: github.event.inputs.run_migrations == 'true'
+    uses: ./.github/workflows/migrate.yml
+
   build:
     runs-on: ubuntu-22.04
     steps:
