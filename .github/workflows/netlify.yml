@@ -13,6 +13,7 @@ jobs:
   run-migration:
     if: github.event.inputs.run_migrations == 'true'
     uses: ./.github/workflows/migrate.yml
+    secrets: inherit
 
   build:
     runs-on: ubuntu-22.04
