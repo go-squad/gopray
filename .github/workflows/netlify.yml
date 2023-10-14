@@ -16,7 +16,7 @@ jobs:
 
   build:
     runs-on: ubuntu-22.04
-    needs: run-migrations
+    needs: run-migration
 
     steps:
       - uses: actions/checkout@v3
