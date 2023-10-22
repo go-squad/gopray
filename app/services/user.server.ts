@@ -1,13 +1,16 @@
 /* eslint-disable unicorn/no-null */
-import type { Password, User } from '@prisma/client';
+import type { Password, User, Cell, Church } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
 import { database } from './prisma.server';
+import { getCellById } from './cell.server';
+import { getChurch } from './church.server';
 
 export type { User } from '@prisma/client';
 
 export async function getUserById(id: User['id']) {
-  return database.user.findUnique({
+
+  const userinfo = await database.user.findUnique({
     where: { id },
     select: {
       id: true,
@@ -20,6 +23,15 @@ export async function getUserById(id: User['id']) {
       avatarUrl: true,
     },
   });
+
+  const cellinfo = await getCellById(userinfo!.cellId)
+
+  const churchinfo = await getChurch({churchId: userinfo!.churchId})
+
+  const combineData = {...userinfo, cellName: cellinfo?.name, churchName: churchinfo?.name}
+
+  return combineData; 
+
 }
 
 export async function getUserByEmail(email: User['email']) {
