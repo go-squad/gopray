@@ -11,8 +11,9 @@ export const action = async ({ request }: ActionArgs) => {
 
   const formData = await request.formData();
   const body = formData.get('body');
+  const visibility = formData.get('visibility');
 
-  console.log('body', body);
+  //console.log('body', body);
 
   if (typeof body !== 'string' || body.length === 0) {
     return json({ errors: { body: 'Body is required' } }, { status: 400 });
@@ -33,6 +34,7 @@ const New = () => {
   const [request, setRequest] = useState<string>();
   const [textAreaCount, setTextAreaCount] = useState<number>(0);
   const maxTextAreaCount = 215;
+  const [visibility, setVisibility] = useState('cell');
 
   useEffect(() => {
     if (actionData?.errors?.body) {
@@ -43,6 +45,12 @@ const New = () => {
   const handleOnChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setRequest(event.target.value);
     setTextAreaCount(event.target.value.length);
+  };
+
+  const handleVisibilityChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setVisibility(event.target.value);
   };
 
   return (
@@ -65,7 +73,20 @@ const New = () => {
             <form className="mt-8">
               <div className="mx-auto">
                 <div className="py-1">
-                  <label>
+                  <label className="block text-gray-300 text-md mt-0">
+                    Selecione visibilidade:
+                    <select
+                      name="visibility"
+                      value={visibility}
+                      onChange={handleVisibilityChange}
+                      className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 text-sm w-full"
+                    >
+                      <option value="church">Igreja</option>
+                      <option value="cell">Célula</option>
+                      <option value="me">Apenas Eu</option>
+                    </select>
+                  </label>
+                  <label className="block text-md mt-5">
                     <textarea
                       autoFocus={true}
                       name="body"
