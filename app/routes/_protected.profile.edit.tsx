@@ -5,10 +5,9 @@ import { editUser } from '~/services/user.server';
 export const action: ActionFunction = async ({ request }: ActionArgs) => {
   const formData = await request.formData();
   const displayName = formData.get('displayName') as string;
+  const givenName = formData.get('givenName') as string;
+  const surname = formData.get('surname') as string;
   const userId = formData.get('userId') as string;
-
-  console.log('userId', userId);
-  console.log('new URL(request.url)', new URL(request.url));
 
   if (!userId) {
     return json({ errors: { user: 'Usuário inválido.' } }, { status: 400 });
@@ -18,7 +17,7 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
     return json({ errors: { displayName: 'Nome inválido.' } }, { status: 400 });
   }
 
-  return await editUser(userId, displayName);
+  return await editUser(userId, { displayName, givenName, surname });
 };
 
 export const loader = async () => redirect('/profile');

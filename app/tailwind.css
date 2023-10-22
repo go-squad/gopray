@@ -583,12 +583,12 @@ video {
   top: -1px;
 }
 
-.right-3 {
-  right: 0.75rem;
-}
-
 .left-3 {
   left: 0.75rem;
+}
+
+.right-3 {
+  right: 0.75rem;
 }
 
 .z-10 {

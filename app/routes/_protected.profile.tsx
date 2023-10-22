@@ -86,6 +86,8 @@ const Profile = () => {
           <div className="flex flex-col text-gray-300">
             <span>{`${user.givenName || ''} ${user.surname || ''}`}</span>
             <span>{user.email} </span>
+            <span>{user.cellId} </span>
+            <span>{user.churchId} </span>
           </div>
         </div>
 
@@ -115,6 +117,58 @@ const Profile = () => {
             ) : // eslint-disable-next-line unicorn/no-null
             null}
             <input type="hidden" name="userId" value={user.id} />
+          </div>
+          <div>
+            <label
+              htmlFor="givenName"
+              className="font-semibold text-sm text-gray-300 pb-1 block"
+            >
+              Nome
+            </label>
+            <input
+              type="text"
+              name="givenName"
+              id="givenName"
+              defaultValue={user.givenName}
+              placeholder="Nome"
+              autoFocus={true}
+              autoComplete="email"
+              aria-invalid={actionData?.errors?.givenName ? true : undefined}
+              aria-describedby="givenName-error"
+              className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
+            />
+            {actionData?.errors?.givenName ? (
+              <div className="pt-1 text-red-700" id="givenName-error">
+                {actionData.errors.givenName}
+              </div>
+            ) : // eslint-disable-next-line unicorn/no-null
+            null}
+          </div>
+          <div>
+            <label
+              htmlFor="surname"
+              className="font-semibold text-sm text-gray-300 pb-1 block"
+            >
+              Sobrenome
+            </label>
+            <input
+              type="text"
+              name="surname"
+              id="surname"
+              defaultValue={user.surname}
+              placeholder="Sobrenome"
+              autoFocus={true}
+              autoComplete="email"
+              aria-invalid={actionData?.errors?.surname ? true : undefined}
+              aria-describedby="surname-error"
+              className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
+            />
+            {actionData?.errors?.surname ? (
+              <div className="pt-1 text-red-700" id="surname-error">
+                {actionData.errors.surname}
+              </div>
+            ) : // eslint-disable-next-line unicorn/no-null
+            null}
           </div>
           <button
             className="text-m text-sky-500 block  hover:text-white"
