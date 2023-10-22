@@ -99,6 +99,9 @@ const Profile = () => {
           <div className="flex flex-col text-gray-300">
             <span>{`${user.givenName || ''} ${user.surname || ''}`}</span>
             <span>{user.email} </span>
+            {/* TODO: change to name when backend is finished */}
+            <span>{user.churchId}</span>
+            <span>{user.cellId} </span>
           </div>
         </div>
 
@@ -108,7 +111,7 @@ const Profile = () => {
               htmlFor="displayName"
               className="font-semibold text-sm text-gray-300 pb-1 block"
             >
-              Display name
+              Apelido
             </label>
             <input
               type="text"
@@ -119,7 +122,7 @@ const Profile = () => {
               autoComplete="email"
               aria-invalid={actionData?.errors?.displayName ? true : undefined}
               aria-describedby="displayName-error"
-              className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+              className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
             />
             {actionData?.errors?.displayName ? (
               <div className="pt-1 text-red-700" id="displayName-error">
@@ -128,6 +131,58 @@ const Profile = () => {
             ) : // eslint-disable-next-line unicorn/no-null
             null}
             <input type="hidden" name="userId" value={user.id} />
+          </div>
+          <div>
+            <label
+              htmlFor="givenName"
+              className="font-semibold text-sm text-gray-300 pb-1 block"
+            >
+              Nome
+            </label>
+            <input
+              type="text"
+              name="givenName"
+              id="givenName"
+              defaultValue={user.givenName}
+              placeholder="Nome"
+              autoFocus={true}
+              autoComplete="email"
+              aria-invalid={actionData?.errors?.givenName ? true : undefined}
+              aria-describedby="givenName-error"
+              className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
+            />
+            {actionData?.errors?.givenName ? (
+              <div className="pt-1 text-red-700" id="givenName-error">
+                {actionData.errors.givenName}
+              </div>
+            ) : // eslint-disable-next-line unicorn/no-null
+            null}
+          </div>
+          <div>
+            <label
+              htmlFor="surname"
+              className="font-semibold text-sm text-gray-300 pb-1 block"
+            >
+              Sobrenome
+            </label>
+            <input
+              type="text"
+              name="surname"
+              id="surname"
+              defaultValue={user.surname}
+              placeholder="Sobrenome"
+              autoFocus={true}
+              autoComplete="email"
+              aria-invalid={actionData?.errors?.surname ? true : undefined}
+              aria-describedby="surname-error"
+              className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
+            />
+            {actionData?.errors?.surname ? (
+              <div className="pt-1 text-red-700" id="surname-error">
+                {actionData.errors.surname}
+              </div>
+            ) : // eslint-disable-next-line unicorn/no-null
+            null}
           </div>
           <button
             className="text-m text-sky-500 block  hover:text-white"
@@ -142,7 +197,7 @@ const Profile = () => {
           Quer convidar alguém para sua célula?
         </p>
         <p className="mb-2 text-sm text-gray-400">
-          Copie o texto abaixo e envier por email ou whatsapp.
+          Copie o texto abaixo e envie por email ou whatsapp.
         </p>
         <div className="relative group">
           <textarea
