@@ -1,4 +1,4 @@
-import type { User, Cell, Request } from '@prisma/client';
+import type { User, Cell, Request, Audience } from '@prisma/client';
 import { database } from './prisma.server';
 import { getUserById } from './user.server';
 import { getCellById } from './cell.server';
@@ -52,14 +52,17 @@ export function createPrayerRequest({
   body,
   userId,
   cellId,
+  audience
 }: Pick<Request, 'body'> & {
   userId: User['id'];
   cellId: Cell['id'];
+  audience: Audience;
 }) {
   return database.request.create({
     data: {
       body,
-      cellId: cellId,
+      cellId: cellId, 
+      audience,
       user: {
         connect: {
           id: userId,

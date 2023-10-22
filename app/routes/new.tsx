@@ -1,3 +1,4 @@
+import { Audience } from '@prisma/client';
 import type { ActionArgs, V2_MetaFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 import { Form, useActionData } from '@remix-run/react';
@@ -11,15 +12,17 @@ export const action = async ({ request }: ActionArgs) => {
 
   const formData = await request.formData();
   const body = formData.get('body');
-  const visibility = formData.get('visibility');
-
-  //console.log('body', body);
+  let audience = formData.get('audience') as Audience
 
   if (typeof body !== 'string' || body.length === 0) {
     return json({ errors: { body: 'Body is required' } }, { status: 400 });
   }
 
-  await createPrayerRequest({ body, userId: user.id, cellId: user.cellId });
+  if (audience !== Audience.CELL && audience !== Audience.ONLY_ME && audience !== Audience.CHURCH) {
+    return json({ errors: { body: 'Por favor, escolher somente Igreja, Célula ou Apenas eu' } }, { status: 400 });
+
+  }
+  await createPrayerRequest({ body, userId: user.id, cellId: user.cellId, audience: audience });
 
   return redirect('/');
 };
@@ -34,7 +37,7 @@ const New = () => {
   const [request, setRequest] = useState<string>();
   const [textAreaCount, setTextAreaCount] = useState<number>(0);
   const maxTextAreaCount = 215;
-  const [visibility, setVisibility] = useState('cell');
+  const [audience, setAudience] = useState('CELL');
 
   useEffect(() => {
     if (actionData?.errors?.body) {
@@ -47,10 +50,10 @@ const New = () => {
     setTextAreaCount(event.target.value.length);
   };
 
-  const handleVisibilityChange = (
+  const handleAudienceChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setVisibility(event.target.value);
+    setAudience(event.target.value);
   };
 
   return (
@@ -58,6 +61,8 @@ const New = () => {
       <TopHeader title={'Novo pedido'} isHome={false}>
         <Form method="post">
           <input type="hidden" name="body" defaultValue={request} />
+          <input type="hidden" name="audience" value={audience} />
+
           <button
             className="text-m text-sky-500 block  hover:text-white"
             type="submit"
@@ -74,16 +79,15 @@ const New = () => {
               <div className="mx-auto">
                 <div className="py-1">
                   <label className="block text-gray-300 text-md mt-0">
-                    Selecione visibilidade:
                     <select
-                      name="visibility"
-                      value={visibility}
-                      onChange={handleVisibilityChange}
+                      name="audience"
+                      value={audience}
+                      onChange={handleAudienceChange}
                       className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 text-sm w-full"
                     >
-                      <option value="church">Igreja</option>
-                      <option value="cell">Célula</option>
-                      <option value="me">Apenas Eu</option>
+                      <option value="CHURCH">Igreja</option>
+                      <option value="CELL">Célula</option>
+                      <option value="ONLY_ME">Apenas Eu</option>
                     </select>
                   </label>
                   <label className="block text-md mt-5">
