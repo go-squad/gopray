@@ -130,6 +130,7 @@ const Profile = () => {
               type="text"
               name="givenName"
               id="givenName"
+              defaultValue={user.givenName}
               placeholder="Nome"
               autoFocus={true}
               autoComplete="email"
@@ -155,6 +156,7 @@ const Profile = () => {
               type="text"
               name="surname"
               id="surname"
+              defaultValue={user.surname}
               placeholder="Sobrenome"
               autoFocus={true}
               autoComplete="email"
