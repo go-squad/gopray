@@ -86,8 +86,9 @@ const Profile = () => {
           <div className="flex flex-col text-gray-300">
             <span>{`${user.givenName || ''} ${user.surname || ''}`}</span>
             <span>{user.email} </span>
+            {/* TODO: change to name when backend is finished */}
+            <span>{user.churchId}</span>
             <span>{user.cellId} </span>
-            <span>{user.churchId} </span>
           </div>
         </div>
 
@@ -97,7 +98,7 @@ const Profile = () => {
               htmlFor="displayName"
               className="font-semibold text-sm text-gray-300 pb-1 block"
             >
-              Display name
+              Apelido
             </label>
             <input
               type="text"
@@ -108,7 +109,7 @@ const Profile = () => {
               autoComplete="email"
               aria-invalid={actionData?.errors?.displayName ? true : undefined}
               aria-describedby="displayName-error"
-              className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+              className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
             />
             {actionData?.errors?.displayName ? (
               <div className="pt-1 text-red-700" id="displayName-error">
@@ -183,7 +184,7 @@ const Profile = () => {
           Quer convidar alguém para sua célula?
         </p>
         <p className="mb-2 text-sm text-gray-400">
-          Copie o texto abaixo e envier por email ou whatsapp.
+          Copie o texto abaixo e envie por email ou whatsapp.
         </p>
         <div className="relative group">
           <textarea
