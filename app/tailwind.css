@@ -583,12 +583,12 @@ video {
   top: -1px;
 }
 
-.right-3 {
-  right: 0.75rem;
-}
-
 .left-3 {
   left: 0.75rem;
+}
+
+.right-3 {
+  right: 0.75rem;
 }
 
 .z-10 {
@@ -699,6 +699,10 @@ video {
 
 .mt-8 {
   margin-top: 2rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
 .block {
