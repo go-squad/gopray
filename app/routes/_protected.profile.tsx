@@ -87,7 +87,7 @@ const Profile = () => {
             <span>{`${user.givenName || ''} ${user.surname || ''}`}</span>
             <span>{user.email} </span>
             {/* TODO: change to name when backend is finished */}
-            <span>{user.churchNameg}</span>
+            <span>{user.churchName}</span>
             <span>{user.cellName} </span>
           </div>
         </div>
