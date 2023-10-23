@@ -89,21 +89,16 @@ const New = () => {
                   </label>
                 </div>
 
-                {maxTextAreaCount - textAreaCount <= 20 &&
-                maxTextAreaCount - textAreaCount > 0 ? (
+                {maxTextAreaCount - textAreaCount > 0 ? (
                   <span className="text-xs text-gray-400">
                     Você ainda pode adicionar{' '}
                     <b>{maxTextAreaCount - textAreaCount}</b> caracteres.
                   </span>
-                ) : // eslint-disable-next-line unicorn/no-null
-                null}
-
-                {maxTextAreaCount - textAreaCount === 0 ? (
+                ) : (
                   <span className="text-xs text-gray-400">
                     Você já atingiu o máximo de caracteres neste pedido.
                   </span>
-                ) : // eslint-disable-next-line unicorn/no-null
-                null}
+                )}
 
                 {/* <button className="mt-3 text-lg font-semibold bg-gray-800 w-full text-white rounded-lg px-6 py-3 block shadow-xl hover:text-white hover:bg-black">
                   Compartilhar
