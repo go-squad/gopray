@@ -86,9 +86,8 @@ const Profile = () => {
           <div className="flex flex-col text-gray-300">
             <span>{`${user.givenName || ''} ${user.surname || ''}`}</span>
             <span>{user.email} </span>
-            {/* TODO: change to name when backend is finished */}
-            <span>{user.churchId}</span>
-            <span>{user.cellId} </span>
+            <span>{user.churchNameg}</span>
+            <span>{user.cellName} </span>
           </div>
         </div>
 
