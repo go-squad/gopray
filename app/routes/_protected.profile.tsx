@@ -45,7 +45,7 @@ const Profile = () => {
   const invitationTemplate = `Olá, será um prazer ter você conosco em nosso grupo de oração. Para entrar basta você se cadastrar no app do Orem Club nesse link aqui app.orem.club/signup?invitation=${user.cellId}`;
   const actionData = useActionData<typeof action>();
   const [avatar, setAvatar] = useState('');
-  const title = `What should we do here`;
+  const title = `Convite - Venha participar do GoPray com ${user.givenName} ${user.surname}`;
   const sizeIcons = 30;
 
   useEffect(() => {
@@ -225,15 +225,15 @@ const Profile = () => {
             )}
           </button>
           <div className="flex items-center absolute right-3 -bottom-3">
-            <FacebookShareButton url={invitationTemplate} quote={title}>
+            <FacebookShareButton url={invitationTemplate}>
               <FacebookIcon size={sizeIcons} round />
             </FacebookShareButton>
 
-            <TwitterShareButton url={invitationTemplate} title={title}>
+            <TwitterShareButton url={invitationTemplate}>
               <TwitterIcon size={sizeIcons} round />
             </TwitterShareButton>
 
-            <WhatsappShareButton url={invitationTemplate} title={title}>
+            <WhatsappShareButton url={invitationTemplate}>
               <WhatsappIcon size={sizeIcons} round />
             </WhatsappShareButton>
 
