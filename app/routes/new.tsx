@@ -12,7 +12,7 @@ export const action = async ({ request }: ActionArgs) => {
 
   const formData = await request.formData();
   const body = formData.get('body');
-  let audience = formData.get('audience') as Audience
+ const audience = formData.get('audience') as Audience
 
   if (typeof body !== 'string' || body.length === 0) {
     return json({ errors: { body: 'Body is required' } }, { status: 400 });
