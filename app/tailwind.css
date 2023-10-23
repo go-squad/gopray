@@ -575,6 +575,10 @@ video {
   bottom: -0.25rem;
 }
 
+.-bottom-3 {
+  bottom: -0.75rem;
+}
+
 .-bottom-px {
   bottom: -1px;
 }

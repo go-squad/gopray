@@ -12,6 +12,17 @@ import type { action } from './_protected.profile.edit';
 import fallback from '../assets/images/pray.jpg';
 import { MainFooter } from '~/components/MainFooter';
 
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  EmailShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  WhatsappIcon,
+  EmailIcon,
+} from 'react-share';
+
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request);
   return { user };
@@ -34,6 +45,8 @@ const Profile = () => {
   const invitationTemplate = `Olá, será um prazer ter você conosco em nosso grupo de oração. Para entrar basta você se cadastrar no app do Orem Club nesse link aqui app.orem.club/signup?invitation=${user.cellId}`;
   const actionData = useActionData<typeof action>();
   const [avatar, setAvatar] = useState('');
+  const title = `Convite - Venha participar do GoPray com ${user.givenName} ${user.surname}`;
+  const sizeIcons = 30;
 
   useEffect(() => {
     if (user?.avatarUrl) {
@@ -210,15 +223,23 @@ const Profile = () => {
               </>
             )}
           </button>
-          <a
-            className="flex items-center absolute right-3 -bottom-1"
-            href={`https://web.whatsapp.com/send/?text=${invitationTemplate}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <PaperAirplaneIcon className="h-4 w-4 text-gray-400 mr-1" />
-            <span className="text-gray-400">Convidar</span>
-          </a>
+          <div className="flex items-center absolute right-3 -bottom-3">
+            <FacebookShareButton url={invitationTemplate}>
+              <FacebookIcon size={sizeIcons} round />
+            </FacebookShareButton>
+
+            <TwitterShareButton url={invitationTemplate}>
+              <TwitterIcon size={sizeIcons} round />
+            </TwitterShareButton>
+
+            <WhatsappShareButton url={invitationTemplate}>
+              <WhatsappIcon size={sizeIcons} round />
+            </WhatsappShareButton>
+
+            <EmailShareButton url={invitationTemplate} subject={title}>
+              <EmailIcon size={sizeIcons} round />
+            </EmailShareButton>
+          </div>
         </div>
       </div>
       <MainFooter />
