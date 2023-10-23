@@ -99,7 +99,7 @@ const Profile = () => {
           <div className="flex flex-col text-gray-300">
             <span>{`${user.givenName || ''} ${user.surname || ''}`}</span>
             <span>{user.email} </span>
-            <span>{user.churchNameg}</span>
+            <span>{user.churchName}</span>
             <span>{user.cellName} </span>
           </div>
         </div>
