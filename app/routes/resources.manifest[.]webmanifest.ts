@@ -4,12 +4,20 @@ import type { LoaderFunction } from '@remix-run/node';
 export const loader: LoaderFunction = async () => {
   return json(
     {
+      id: 'go-pray-app',
       short_name: 'Orem Club',
       name: 'Orem Club',
       start_url: '/',
       display: 'standalone',
+      display_override: ['window-controls-overlay', 'standalone', 'browser'],
+      description: 'Aplicação de gerenciamento de orações',
       background_color: '#0f182a',
       theme_color: '#0f182a',
+      orientation: 'portrait-primary',
+      categories: ['lifestyle', 'social', 'spiritual'],
+      dir: 'ltr',
+      lang: 'pt',
+      scope: 'https://app.orem.club',
       shortcuts: [
         {
           name: 'prayers',
@@ -30,7 +38,7 @@ export const loader: LoaderFunction = async () => {
           sizes: '16x16',
           type: 'image/png',
           density: '1.0',
-          purpose: 'maskable',
+          purpose: 'any',
         },
         {
           src: '/icons/32x32.png',
@@ -96,6 +104,29 @@ export const loader: LoaderFunction = async () => {
           purpose: 'maskable',
         },
       ],
+      screenshots: [
+        {
+          src: '/screenshots/feed.png',
+          sizes: '472x963',
+          type: 'image/jpg',
+          platform: 'wide',
+        },
+        {
+          src: '/screenshots/profile.png',
+          sizes: '472x963',
+          type: 'image/jpg',
+          platform: 'wide',
+        },
+        {
+          src: '/screenshots/new-prayer.png',
+          sizes: '472x963',
+          type: 'image/jpg',
+          platform: 'wide',
+        },
+      ],
+      launch_handler: {
+        client_mode: ['navigate-existing', 'auto'],
+      },
     },
     {
       headers: {
