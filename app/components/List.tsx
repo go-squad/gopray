@@ -1,11 +1,12 @@
 import React from 'react';
 import { ListItem } from './ListItem';
 import type { User } from '@prisma/client';
+import { Prayer } from '~/models/prayer.model';
 
 type ListProperties = {
   title: string;
   description: string;
-  collection: [];
+  collection: Prayer[];
   user: User;
 };
 export const List = ({

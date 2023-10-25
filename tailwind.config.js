@@ -4,6 +4,9 @@ module.exports = {
   content: ['./app/**/*.{ts,tsx,jsx,js}'],
   theme: {
     extend: {
+      fontSize: {
+        xxs: '10px',
+      },
       boxShadow: {
         glow: '0px 0px 20px 0px #1f2b45',
       },

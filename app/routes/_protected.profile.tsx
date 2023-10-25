@@ -97,10 +97,27 @@ const Profile = () => {
             )}
           </div>
           <div className="flex flex-col text-gray-300">
-            <span>{`${user.givenName || ''} ${user.surname || ''}`}</span>
-            <span>{user.email} </span>
-            <span>{user.churchName}</span>
-            <span>{user.cellName} </span>
+            <div className="flex flex-col mb-2">
+              <span className="text-xs text-gray-500">Nome</span>
+              <span>{`${user.givenName || ''} ${user.surname || ''} (${
+                user.displayName
+              })`}</span>
+            </div>
+            <div className="flex text-xs flex-col mb-2">
+              <span className=" text-gray-500">Email</span>
+              <span>{user.email} </span>
+            </div>
+            <div className="flex">
+              <div className="flex text-xs  flex-col mb-2 mr-3">
+                <span className=" text-gray-500">Igreja</span>
+                <span>{user.churchName}</span>
+              </div>
+              <div className="flex text-xs flex-col mb-2">
+                <span className="text-gray-500">Célula</span>
+                <span>{user.cellName} </span>
+              </div>
+
+            </div>
           </div>
         </div>
 
@@ -198,7 +215,7 @@ const Profile = () => {
         <p className="mb-2 text-sm text-gray-400">
           Copie o texto abaixo e envie por email ou whatsapp.
         </p>
-        <div className="relative group">
+        <div className="relative group mb-24">
           <textarea
             className="resize-none bg-transparent text-gray-100 border border-orem-500.18 rounded-lg px-3 py-3 mt-1 mb-5 text-sm w-full min-height"
             value={invitationTemplate}

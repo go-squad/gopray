@@ -4,10 +4,11 @@ import ReactTimeAgo from 'react-time-ago';
 import { ClockIcon } from '@heroicons/react/24/solid';
 import { Form, useNavigation } from '@remix-run/react';
 import type { User } from '@prisma/client';
+import type { Prayer } from '~/models/prayer.model';
 
 type ListItemProperties = {
   // temp
-  item: any;
+  item: Prayer;
   user: User;
 };
 
@@ -61,7 +62,7 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
       </div>
       <div className="prayerContent flex flex-col flex-1">
         <div
-          className={`prayer-card min-h-[130px] transition duration-300 ease-out  bg-sky-950 flex flex-col p-4 pb-4 pr-12 rounded-md mb-1 justify-between ${
+          className={`prayer-card min-h-[130px] transition duration-300 ease-out  bg-sky-950 flex flex-col p-4 pb-2 pr-12 rounded-md mb-1 justify-between ${
             isItemSaved ? 'shadow-glow' : ''
           }`}
         >
@@ -69,8 +70,8 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
             <b className="text-gray-400">{item.username}</b> •{' '}
             <span>célula {item.cell}</span>
           </div>
-          <div className={`text-base text-gray-100 mb-5`}>{item.body}</div>
-          <div className="prayer-button">
+          <div className={`text-sm text-gray-100 mb-5`}>{item.body}</div>
+          <div className="prayer-button pl-2 pt-2 w-full border-t border-gray-400 border-opacity-10">
             <Form method="post">
               <input
                 type="hidden"
@@ -94,13 +95,13 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
                 readOnly
               />
               <button
-                className="text-s text-gray-400 flex items-center"
+                className="text-xxs text-gray-400 flex flex-col items-center"
                 type="submit"
                 disabled={isSubmitting}
                 onClick={() => handleClick()}
               >
                 <svg
-                  className={`h-5 w-5  mb-px mr-2 ${
+                  className={`w-3.5  mb-px ${
                     isItemSaved ? 'fill-sky-500' : 'fill-gray-400'
                   }`}
                   version="1.1"
@@ -130,23 +131,23 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
           </div>
         </div>
         <div className="mb-4">
-          {item?.prayingCount < 2 ? undefined : (
-            <div className="praying-count flex items-start text-xs text-gray-400 ph-4 pt-2">
-              <div className="flex -space-x-2 mr-2">
-                <img
-                  className="inline-block h-5 w-5 rounded-full ring-2 ring-gray-800"
-                  src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-                  alt="avatar1"
-                />
-                <img
-                  className="inline-block h-5 w-5 rounded-full ring-2 ring-gray-800"
-                  src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-                  alt="avatar 2"
-                />
-              </div>
+          {!item?.prayingCount && isItemSaved && (
+            <div className="praying-count flex items-start text-xs text-gray-400 ph-4 pt-2 pl-2">
               <div className="flex-1 pt-[2px]">
-                <b className="text-gray-300">Charles Lopes </b>
-                <span> e outras</span>
+                <span>Seja o primeiro à orar por essa causa. </span>
+              </div>
+            </div>
+          )}
+
+          {item?.prayingCount && item?.prayingCount > 2 && (
+            <div className="praying-count flex items-start text-xs text-gray-400 ph-4 pt-2 pl-3">
+              <div className="flex-1 pt-[2px]">
+                {isItemSaved && (
+                  <>
+                    <b className="text-gray-300">Você </b>
+                    <span> e outras</span>
+                  </>
+                )}
                 <b className="text-gray-300"> {item?.prayingCount || 0} </b>
                 <span> pessoas orando.</span>
               </div>
