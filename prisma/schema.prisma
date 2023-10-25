@@ -25,6 +25,7 @@ model User {
   cell        Cell          @relation(fields: [cellId], references: [id])
   Church      Church        @relation(fields: [churchId], references: [id])
   RequestPray RequestPray[]
+  audience    Audience      @default(CELL)
 }
 
 model Password {
@@ -73,4 +74,11 @@ model RequestPray {
   createdAt DateTime @default(now())
 
   @@unique([userId, requestId])
+}
+
+enum Audience {
+  CELL
+  CHURCH
+  ONLY_ME
+  MY_SUPERVISION
 }

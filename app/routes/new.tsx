@@ -9,20 +9,40 @@ import { requireUser } from '~/services/session.server';
 
 export const action = async ({ request }: ActionArgs) => {
   const user = await requireUser(request);
+  if (!user.id || !user.cellId) {
+    return json(
+      { errors: { body: 'User is missing, please contact support' } },
+      { status: 400 }
+    );
+  }
 
   const formData = await request.formData();
   const body = formData.get('body');
- const audience = formData.get('audience') as Audience
+  const audience = formData.get('audience') as Audience;
 
   if (typeof body !== 'string' || body.length === 0) {
-    return json({ errors: { body: 'Body is required' } }, { status: 400 });
+    return json(
+      { errors: { body: 'Por favor, digite a seu pedido de oração' } },
+      { status: 400 }
+    );
   }
 
-  if (audience !== Audience.CELL && audience !== Audience.ONLY_ME && audience !== Audience.CHURCH) {
-    return json({ errors: { body: 'Por favor, escolher somente Igreja, Célula ou Apenas eu' } }, { status: 400 });
-
+  if (
+    audience !== Audience.CELL &&
+    audience !== Audience.ONLY_ME &&
+    audience !== Audience.CHURCH
+  ) {
+    return json(
+      { errors: { body: 'Por favor, escolher somente Igreja, Célula ou Apenas eu' } },
+      { status: 400 }
+    );
   }
-  await createPrayerRequest({ body, userId: user.id, cellId: user.cellId, audience: audience });
+  await createPrayerRequest({
+    body,
+    userId: user.id,
+    cellId: user.cellId,
+    audience: audience,
+  });
 
   return redirect('/');
 };
@@ -78,18 +98,6 @@ const New = () => {
             <form className="mt-8">
               <div className="mx-auto">
                 <div className="py-1">
-                  <label className="block text-gray-300 text-md mt-0">
-                    <select
-                      name="audience"
-                      value={audience}
-                      onChange={handleAudienceChange}
-                      className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 text-sm w-full"
-                    >
-                      <option value="CHURCH">Igreja</option>
-                      <option value="CELL">Célula</option>
-                      <option value="ONLY_ME">Apenas Eu</option>
-                    </select>
-                  </label>
                   <label className="block text-md mt-5">
                     <textarea
                       autoFocus={true}
@@ -114,17 +122,30 @@ const New = () => {
                   </label>
                 </div>
 
-                {maxTextAreaCount - textAreaCount > 0 ? (
-                  <span className="text-xs text-gray-400">
-                    Você ainda pode adicionar{' '}
-                    <b>{maxTextAreaCount - textAreaCount}</b> caracteres.
-                  </span>
-                ) : (
-                  <span className="text-xs text-gray-400">
-                    Você já atingiu o máximo de caracteres neste pedido.
-                  </span>
-                )}
-
+                {textAreaCount > 0 &&
+                  (maxTextAreaCount - textAreaCount > 0 ? (
+                    <span className="text-xs text-gray-400">
+                      Você ainda pode adicionar{' '}
+                      <b>{maxTextAreaCount - textAreaCount}</b> caracteres.
+                    </span>
+                  ) : (
+                    <span className="text-xs text-gray-400">
+                      Você já atingiu o máximo de caracteres neste pedido.
+                    </span>
+                  ))}
+                <label className="block text-gray-300 text-md mt-5 flex items-center">
+                Audiência:
+                  <select
+                    name="audience"
+                    value={audience}
+                    onChange={handleAudienceChange}
+                    className="bg-gray-800 text-gray-100 border rounded-lg px-3 py-2 mt-1 text-sm w-48 mx-4"
+                  >
+                    <option value="CHURCH">Igreja</option>
+                    <option value="CELL">Célula</option>
+                    <option value="ONLY_ME">Apenas Eu</option>
+                  </select>
+                </label>
                 {/* <button className="mt-3 text-lg font-semibold bg-gray-800 w-full text-white rounded-lg px-6 py-3 block shadow-xl hover:text-white hover:bg-black">
                   Compartilhar
                 </button> */}
