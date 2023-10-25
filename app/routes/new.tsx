@@ -27,15 +27,14 @@ export const action = async ({ request }: ActionArgs) => {
     );
   }
 
-  if (
-    audience !== Audience.CELL &&
-    audience !== Audience.ONLY_ME &&
-    audience !== Audience.CHURCH
-  ) {
-    return json(
+ const allowedAudiences = [Audience.CELL, Audience.ONLY_ME, Audience.CHURCH];
+
+if (!allowedAudiences.includes(audience)) {
+return json(
       { errors: { body: 'Por favor, escolher somente Igreja, Célula ou Apenas eu' } },
       { status: 400 }
     );
+ }
   }
   await createPrayerRequest({
     body,
