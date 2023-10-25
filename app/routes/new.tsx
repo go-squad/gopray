@@ -27,15 +27,23 @@ export const action = async ({ request }: ActionArgs) => {
     );
   }
 
- const allowedAudiences = [Audience.CELL, Audience.ONLY_ME, Audience.CHURCH];
+  const allowedAudiences = [
+    Audience.CELL,
+    Audience.ONLY_ME,
+    Audience.CHURCH,
+  ] as Audience[];
 
-if (!allowedAudiences.includes(audience)) {
-return json(
-      { errors: { body: 'Por favor, escolher somente Igreja, Célula ou Apenas eu' } },
+  if (!allowedAudiences.includes(audience)) {
+    return json(
+      {
+        errors: {
+          body: 'Por favor, escolher somente Igreja, Célula ou Apenas eu',
+        },
+      },
       { status: 400 }
     );
- }
   }
+
   await createPrayerRequest({
     body,
     userId: user.id,
@@ -133,7 +141,7 @@ const New = () => {
                     </span>
                   ))}
                 <label className="block text-gray-300 text-md mt-5 flex items-center">
-                Audiência:
+                  Audiência:
                   <select
                     name="audience"
                     value={audience}

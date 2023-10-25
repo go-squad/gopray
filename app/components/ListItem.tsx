@@ -20,7 +20,7 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
 
   useEffect(() => {
     if (item?.avatarUrl) {
-      setAvatar(item.avatar);
+      setAvatar(item.avatarUrl);
     } else if (item?.givenName && item?.surname) {
       setAvatar(`${item.givenName.charAt(0)}${item.surname.charAt(0)}`);
     } else if (item?.username) {

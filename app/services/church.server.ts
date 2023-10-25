@@ -1,4 +1,4 @@
-import type { User, Cell, Request, Church } from '@prisma/client';
+import type { Church } from '@prisma/client';
 import { database } from './prisma.server';
 
 export function getChurch({ churchId }: { churchId: Church['id'] }) {
