@@ -131,7 +131,7 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
           </div>
         </div>
         <div className="mb-4">
-          {!item?.prayingCount && isItemSaved && (
+          {!item?.prayingCount && !isItemSaved && (
             <div className="praying-count flex items-start text-xs text-gray-400 ph-4 pt-2 pl-2">
               <div className="flex-1 pt-[2px]">
                 <span>Seja o primeiro à orar por essa causa. </span>
