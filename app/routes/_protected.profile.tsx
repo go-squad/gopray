@@ -1,10 +1,9 @@
 import {
   ClipboardDocumentCheckIcon,
   ClipboardDocumentListIcon,
-  PaperAirplaneIcon,
 } from '@heroicons/react/24/solid';
 import type { LoaderFunction, V2_MetaFunction } from '@remix-run/node';
-import { Form, Link, useActionData, useLoaderData } from '@remix-run/react';
+import { Form, useActionData, useLoaderData } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import { TopHeader } from '~/components/TopHeader';
 import { requireUser } from '~/services/session.server';
@@ -13,14 +12,10 @@ import fallback from '../assets/images/pray.jpg';
 import { MainFooter } from '~/components/MainFooter';
 
 import {
-  FacebookShareButton,
-  TwitterShareButton,
   WhatsappShareButton,
-  EmailShareButton,
-  FacebookIcon,
-  TwitterIcon,
+  TelegramShareButton,
   WhatsappIcon,
-  EmailIcon,
+  TelegramIcon,
 } from 'react-share';
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -45,7 +40,6 @@ const Profile = () => {
   const invitationTemplate = `Olá, será um prazer ter você conosco em nosso grupo de oração. Para entrar basta você se cadastrar no app do Orem Club nesse link aqui app.orem.club/signup?invitation=${user.cellId}`;
   const actionData = useActionData<typeof action>();
   const [avatar, setAvatar] = useState('');
-  const title = `Convite - Venha participar do GoPray com ${user.givenName} ${user.surname}`;
   const sizeIcons = 30;
 
   useEffect(() => {
@@ -116,7 +110,6 @@ const Profile = () => {
                 <span className="text-gray-500">Célula</span>
                 <span>{user.cellName} </span>
               </div>
-
             </div>
           </div>
         </div>
@@ -240,22 +233,14 @@ const Profile = () => {
               </>
             )}
           </button>
-          <div className="flex items-center absolute right-3 -bottom-3">
-            <FacebookShareButton url={invitationTemplate}>
-              <FacebookIcon size={sizeIcons} round />
-            </FacebookShareButton>
-
-            <TwitterShareButton url={invitationTemplate}>
-              <TwitterIcon size={sizeIcons} round />
-            </TwitterShareButton>
-
-            <WhatsappShareButton url={invitationTemplate}>
+          <div className="items-center absolute right-3 -bottom-5">
+            <WhatsappShareButton url={invitationTemplate} className="mr-1">
               <WhatsappIcon size={sizeIcons} round />
             </WhatsappShareButton>
 
-            <EmailShareButton url={invitationTemplate} subject={title}>
-              <EmailIcon size={sizeIcons} round />
-            </EmailShareButton>
+            <TelegramShareButton url={invitationTemplate}>
+              <TelegramIcon size={sizeIcons} round />
+            </TelegramShareButton>
           </div>
         </div>
       </div>
