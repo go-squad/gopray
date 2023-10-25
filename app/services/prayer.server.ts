@@ -3,6 +3,7 @@ import { database } from './prisma.server';
 import { getUserById } from './user.server';
 import { getCellById } from './cell.server';
 import { getRequestSavedStatusById } from './request-pray.server';
+import type { Prayer } from '~/models/prayer.model';
 
 export const listPrayerRequests = async ({
   cellId,
@@ -10,9 +11,9 @@ export const listPrayerRequests = async ({
 }: {
   cellId: Cell['id'];
   loggedUserId: User['id'];
-}) => {
+}): Promise<Prayer[]> => {
   try {
-    let requests = await database.request.findMany({
+    const requests = await database.request.findMany({
       where: { cellId },
       select: {
         id: true,
@@ -52,7 +53,7 @@ export function createPrayerRequest({
   body,
   userId,
   cellId,
-  audience
+  audience,
 }: Pick<Request, 'body'> & {
   userId: User['id'];
   cellId: Cell['id'];
@@ -61,7 +62,7 @@ export function createPrayerRequest({
   return database.request.create({
     data: {
       body,
-      cellId: cellId, 
+      cellId: cellId,
       audience,
       user: {
         connect: {
