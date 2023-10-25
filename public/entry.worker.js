@@ -45,7 +45,6 @@ var validMutationMethodsArr = ["post", "put", "patch", "delete"];
 var validMutationMethods = new Set(validMutationMethodsArr);
 var validRequestMethodsArr = ["get", ...validMutationMethodsArr];
 var validRequestMethods = new Set(validRequestMethodsArr);
-var isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined";
 var UNSAFE_DEFERRED_SYMBOL = Symbol("deferred");
 
 // node_modules/@remix-run/server-runtime/dist/esm/responses.js
@@ -242,7 +241,7 @@ async function appHandleFetch(event, {
 
 @remix-run/router/dist/router.js:
   (**
-   * @remix-run/router v1.5.0
+   * @remix-run/router v1.7.2
    *
    * Copyright (c) Remix Software Inc.
    *
@@ -254,7 +253,7 @@ async function appHandleFetch(event, {
 
 @remix-run/server-runtime/dist/esm/responses.js:
   (**
-   * @remix-run/server-runtime v1.15.0
+   * @remix-run/server-runtime v1.19.3
    *
    * Copyright (c) Remix Software Inc.
    *
@@ -266,7 +265,7 @@ async function appHandleFetch(event, {
 
 @remix-run/server-runtime/dist/esm/index.js:
   (**
-   * @remix-run/server-runtime v1.15.0
+   * @remix-run/server-runtime v1.19.3
    *
    * Copyright (c) Remix Software Inc.
    *
