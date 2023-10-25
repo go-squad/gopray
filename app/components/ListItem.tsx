@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import fallback from '../assets/images/pray.jpg';
 import ReactTimeAgo from 'react-time-ago';
-import { ClockIcon } from '@heroicons/react/24/solid';
 import { Form, useNavigation } from '@remix-run/react';
 import type { User } from '@prisma/client';
 import type { Prayer } from '~/models/prayer.model';
@@ -50,15 +49,6 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
             </div>
           )}
         </div>
-        <div className="time-ago flex flex-col items-center text-xs text-gray-400 max-w-[58px]">
-          <ClockIcon className="h-5 w-5 mb-2" />
-          <ReactTimeAgo
-            className="text-center text-xs"
-            timeStyle="round-minute"
-            date={new Date(item.createdAt)}
-            locale="pt-Br"
-          />
-        </div>
       </div>
       <div className="prayerContent flex flex-col flex-1">
         <div
@@ -69,6 +59,14 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
           <div className="user-info text-xs text-gray-400 mb-1">
             <b className="text-gray-400">{item.username}</b> •{' '}
             <span>célula {item.cell}</span>
+          </div>
+          <div className="time-ago flex items-center text-xxs text-gray-500 mb-4">
+            <ReactTimeAgo
+              className="text-center text-xs"
+              timeStyle="round-minute"
+              date={new Date(item.createdAt)}
+              locale="pt-Br"
+            />
           </div>
           <div className={`text-sm text-gray-100 mb-5`}>{item.body}</div>
           <div className="prayer-button pl-2 pt-2 w-full border-t border-gray-400 border-opacity-10">
