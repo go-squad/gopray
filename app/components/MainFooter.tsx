@@ -1,4 +1,4 @@
-import { Link, NavLink } from '@remix-run/react';
+import { NavLink } from '@remix-run/react';
 import {
   HomeIcon,
   PlusCircleIcon,
@@ -7,7 +7,7 @@ import {
 
 export const MainFooter = () => {
   return (
-    <div className="flex justify-center divide-y divide-orem-500.18 pb-3 font-bold text-l text-gray-400 fixed inset-x-0 -bottom-px z-10 bg-slate-900">
+    <div className="flex justify-center divide-y divide-orem-500.18 pb-3 font-bold text-l text-gray-400 fixed inset-x-0 -bottom-px z-10 bg-slate-950">
       <div></div>
       <div className="w-full pt-4 mb-1 flex justify-around max-w-[448px]">
         <div className="flex justify-center min-w-[55px]">

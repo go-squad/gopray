@@ -16,7 +16,7 @@ export const TopHeader = ({
   return (
     <div
       className="flex justify-center items-end py-2 h-14 h-sa container px-4
-      shadow-2xl shadow-slate-950  border-b border-orem-500.18 fixed -top-px  bg-slate-900 z-30 max-w-[448px]"
+      shadow-2xl shadow-slate-950  border-b border-orem-500.18 fixed -top-px  bg-slate-950 z-30 max-w-[448px]"
     >
       <div className="flex justify-between items-center w-full">
         {isHome ? (

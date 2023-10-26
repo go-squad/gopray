@@ -3,9 +3,9 @@ import {
   type ActionArgs,
   type ActionFunction,
 } from '@remix-run/node';
-import { editUser } from '../services/user.server';
 import { requireUser } from '../services/session.server';
 import { uploadHandler } from '../services/storage/upload.server';
+import { editUser } from '../services/user.server';
 
 export const action: ActionFunction = async ({ request }: ActionArgs) => {
   const user = await requireUser(request);
