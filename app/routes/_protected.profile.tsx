@@ -1,4 +1,5 @@
 import {
+  ArrowUpTrayIcon,
   ClipboardDocumentCheckIcon,
   ClipboardDocumentListIcon,
 } from '@heroicons/react/24/solid';
@@ -17,6 +18,7 @@ import {
   WhatsappIcon,
   TelegramIcon,
 } from 'react-share';
+import AvatarForm from '../components/forms/AvatarForm';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request);
@@ -44,7 +46,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (user?.avatarUrl) {
-      setAvatar(user.avatar);
+      setAvatar(user.avatarUrl);
     } else if (user?.givenName && user?.surname) {
       setAvatar(`${user.givenName.charAt(0)}${user.surname.charAt(0)}`);
     } else if (user?.username) {
@@ -77,18 +79,23 @@ const Profile = () => {
       </TopHeader>
       <div className="h-full container p-4">
         <div className="flex justify-start items-center mb-4">
-          <div className="avatar relative block mr-3">
-            {user.avatarUrl ? (
-              <img
-                alt="profile"
-                src={user.avatarUrl || fallback}
-                className="mx-auto object-cover rounded-full h-24 w-24 "
-              />
-            ) : (
-              <div className="relative inline-flex items-center justify-center w-20 h-20 overflow-hidden rounded-full bg-gray-600">
+          <div className="avatar relative block mr-4">
+            <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-full bg-gray-600">
+              {user.avatarUrl ? (
+                <img
+                  alt="profile"
+                  src={user.avatarUrl || fallback}
+                  className="mx-auto object-cover rounded-full h-24 w-24 "
+                />
+              ) : (
                 <span className="font-medium text-gray-300">{avatar}</span>
-              </div>
-            )}
+              )}
+              <AvatarForm>
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center  absolute right-0 bottom-0 cursor-pointer">
+                  <ArrowUpTrayIcon className="w-4 h-4" />
+                </div>
+              </AvatarForm>
+            </div>
           </div>
           <div className="flex flex-col text-gray-300">
             <div className="flex flex-col mb-2">
