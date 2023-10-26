@@ -44,7 +44,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (user?.avatarUrl) {
-      setAvatar(user.avatar);
+      setAvatar(user.avatarUrl);
     } else if (user?.givenName && user?.surname) {
       setAvatar(`${user.givenName.charAt(0)}${user.surname.charAt(0)}`);
     } else if (user?.username) {
@@ -88,6 +88,14 @@ const Profile = () => {
               <div className="relative inline-flex items-center justify-center w-20 h-20 overflow-hidden rounded-full bg-gray-600">
                 <span className="font-medium text-gray-300">{avatar}</span>
               </div>
+              // <label>
+              //   <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gray-600 cursor-pointer rounded-full">
+              //     <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center mt-12 ml-12">
+              //       <ArrowUpTrayIcon className="w-4 h-4" />
+              //     </div>
+              //     <input type="file" accept="image/*" className="hidden" />
+              //   </div>
+              // </label>
             )}
           </div>
           <div className="flex flex-col text-gray-300">
