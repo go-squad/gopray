@@ -174,19 +174,25 @@ export const Login = () => {
           </Form>
 
           <div className="flex flex-col items-center">
-            <div className="flex items-center mb-3">
-              <input
-                id="remember"
-                name="remember"
-                type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <label
-                htmlFor="remember"
-                className="ml-2 block text-sm text-gray-300"
-              >
-                Remember me
-              </label>
+            <div className="flex items-center mb-3 justify-between w-full">
+              <div className="flex">
+                <input
+                  id="remember"
+                  name="remember"
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <label
+                  htmlFor="remember"
+                  className="ml-2 block text-sm text-gray-300"
+                >
+                  Remember me
+                </label>
+              </div>
+
+              <Link className="text-blue-500 underline" to={{}}>
+                Forgot Password?
+              </Link>
             </div>
             <div className="text-center text-sm text-gray-500">
               Don't have an account?{' '}
