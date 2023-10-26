@@ -1,6 +1,7 @@
 import { supabaseClient } from '../../utils/server/db.server';
+import { v4 as uuid } from 'uuid';
 
-export const uploadHandler = async properties => {
+export const uploadHandler = async (properties: any) => {
   // TODO Logic to delete avatar if exists
   const { data, filename, contentType } = properties;
 
@@ -11,7 +12,7 @@ export const uploadHandler = async properties => {
 
   const { data: uploadData, error } = await supabaseClient.storage
     .from('avatars')
-    .upload(filename, buffer, { contentType });
+    .upload(`${filename}-${uuid()}`, buffer, { contentType });
   if (error) {
     throw error;
   }
