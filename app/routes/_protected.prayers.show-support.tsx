@@ -11,10 +11,6 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
   const requestId = formData.get('requestId') as string;
   const isSaved = formData.get('isSaved') as string;
 
-  console.log('requestId', requestId);
-  console.log('userId', userId);
-  console.log('isSaved', isSaved);
-
   if (!userId || !requestId || !isSaved) {
     return json(
       { errors: { userId: 'Invalid user or request' } },
