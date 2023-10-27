@@ -1,9 +1,10 @@
-import type { User, Cell, Request, Audience } from '@prisma/client';
-import { database } from './prisma.server';
-import { getUserById } from './user.server';
-import { getCellById } from './cell.server';
-import { getRequestSavedStatusById } from './request-pray.server';
+import type { Audience, Cell, Request, User } from '@prisma/client';
 import type { Prayer } from '~/models/prayer.model';
+import { getCellById } from './cell.server';
+import { database } from './prisma.server';
+import { getRequestSavedStatusById } from './request-pray.server';
+import { getPrayerSavedStatus } from './saved-prayers.server';
+import { getUserById } from './user.server';
 
 export const listPrayerRequests = async ({
   cellId,
@@ -30,6 +31,10 @@ export const listPrayerRequests = async ({
       const user = await getUserById(request.userId);
       const cell = await getCellById(cellId);
       const isSaved = await getRequestSavedStatusById(loggedUserId, request.id);
+      const isSavedInPrayerList = await getPrayerSavedStatus(
+        request.id,
+        loggedUserId
+      );
 
       prayers.push({
         ...request,
@@ -39,6 +44,7 @@ export const listPrayerRequests = async ({
         surname: user?.surname,
         cell: cell?.name,
         saved: isSaved,
+        isSavedInPrayerList,
       });
     }
 
@@ -49,7 +55,7 @@ export const listPrayerRequests = async ({
   }
 };
 
-export function createPrayerRequest({
+export const createPrayerRequest = ({
   body,
   userId,
   cellId,
@@ -58,7 +64,7 @@ export function createPrayerRequest({
   userId: User['id'];
   cellId: Cell['id'];
   audience: Audience;
-}) {
+}) => {
   return database.request.create({
     data: {
       body,
@@ -71,4 +77,40 @@ export function createPrayerRequest({
       },
     },
   });
-}
+};
+
+export const fetchPrayersByIds = async (ids: string[]): Promise<Prayer[]> => {
+  try {
+    const requests = await database.request.findMany({
+      where: {
+        id: { in: ids },
+      },
+      select: {
+        id: true,
+        body: true,
+        userId: true,
+        createdAt: true,
+        prayingCount: true,
+      },
+      orderBy: { updatedAt: 'desc' },
+    });
+
+    const prayers = [];
+    for (const request of requests) {
+      const user = await getUserById(request.userId);
+
+      prayers.push({
+        ...request,
+        username: user?.displayName,
+        avatarUrl: user?.avatarUrl,
+        givenName: user?.givenName,
+        surname: user?.surname,
+      });
+    }
+
+    return prayers;
+  } catch (error) {
+    console.error('Error retrieving requests:', error);
+    throw error;
+  }
+};

@@ -1,9 +1,10 @@
-import { NavLink } from '@remix-run/react';
 import {
   HomeIcon,
   PlusCircleIcon,
+  QueueListIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/solid';
+import { NavLink } from '@remix-run/react';
 
 export const MainFooter = () => {
   return (
@@ -37,6 +38,21 @@ export const MainFooter = () => {
             <PlusCircleIcon className="h-5 w-5 text-gray-400 group-[.active]:text-gray-950" />
             <span className="group-[.active]:hidden font-light text-xs mt-1">
               Motivo
+            </span>
+          </NavLink>
+        </div>
+        <div className="flex justify-center min-w-[55px]">
+          <NavLink
+            to="/listing"
+            className={({ isActive, isPending }: any) =>
+              `${
+                isActive ? 'active bg-orem-500 rounded w-10 h-10' : ''
+              } group flex justify-center flex-col items-center`
+            }
+          >
+            <QueueListIcon className="h-5 w-5 text-gray-400 group-[.active]:text-gray-950" />
+            <span className="group-[.active]:hidden font-light text-xs mt-1">
+              Lista
             </span>
           </NavLink>
         </div>

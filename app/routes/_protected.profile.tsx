@@ -39,12 +39,13 @@ async function copyTextToClipboard(text: string) {
 
 const Profile = () => {
   const { user } = useLoaderData();
-  const [isCopied, setIsCopied] = useState(false);
-  const invitationTemplate = `Olá, será um prazer ter você conosco em nosso grupo de oração. Para entrar basta você se cadastrar no app do Orem Club nesse link aqui app.orem.club/signup?invitation=${user.cellId}`;
   const actionData = useActionData<typeof action>();
+  const [isCopied, setIsCopied] = useState(false);
   const [avatar, setAvatar] = useState('');
   const [isAvatarUploading, setIsAvatarUploading] = useState(false);
+
   const sizeIcons = 30;
+  const invitationTemplate = `Olá, será um prazer ter você conosco em nosso grupo de oração. Para entrar basta você se cadastrar no app do Orem Club nesse link aqui app.orem.club/signup?invitation=${user.cellId}`;
 
   useEffect(() => {
     if (user?.avatarUrl) {
