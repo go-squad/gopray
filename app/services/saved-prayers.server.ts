@@ -12,7 +12,7 @@ export const getSavedPrayersIdsByUserId = async (
       requestId: true,
     },
   });
-  console.log('savedIds:', savedIds);
+
   if (savedIds) {
     const savedPrayersIds = savedIds.map(saved => saved.requestId);
     return savedPrayersIds;
@@ -23,7 +23,6 @@ export const getSavedPrayersIdsByUserId = async (
 };
 
 export const savePrayerWithIds = async (requestId: string, userId: string) => {
-  console.log('requestId/userId:', requestId, userId);
   return await database.savedPrayers.create({
     data: {
       requestId,

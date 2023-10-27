@@ -18,10 +18,6 @@ export const action: ActionFunction = async ({ request }: ActionArgs) => {
     );
   }
 
-  console.log('isSaved', isSaved);
-  console.log('requestId', requestId);
-  console.log('userId', userId);
-
   return await (isSaved === 'true'
     ? removeSavedPrayerWithIds(requestId, userId)
     : savePrayerWithIds(requestId, userId));
