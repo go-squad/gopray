@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/24/solid';
 import type { LoaderFunction, V2_MetaFunction } from '@remix-run/node';
 import { Form, useActionData, useLoaderData } from '@remix-run/react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MainFooter } from '~/components/MainFooter';
 import { TopHeader } from '~/components/TopHeader';
 import { requireUser } from '~/services/session.server';
@@ -58,9 +58,9 @@ const Profile = () => {
     }
   }, [user]);
 
-  const handleAvatarUploadStatus = (state: boolean) => {
+  const handleAvatarUploadStatus = useCallback((state: boolean) => {
     setIsAvatarUploading(state);
-  };
+  }, []);
 
   const handleCopyClick = () => {
     copyTextToClipboard(invitationTemplate).then(() => {
