@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
-import fallback from '../assets/images/pray.jpg';
-import ReactTimeAgo from 'react-time-ago';
-import { Form, useNavigation } from '@remix-run/react';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/solid';
 import type { User } from '@prisma/client';
+import { Form, useNavigation } from '@remix-run/react';
+import { useEffect, useState } from 'react';
+import ReactTimeAgo from 'react-time-ago';
 import type { Prayer } from '~/models/prayer.model';
+import fallback from '../assets/images/pray.jpg';
 
 type ListItemProperties = {
   // temp
@@ -33,6 +34,11 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
     setIsItemSaved((state: boolean) => !state);
   };
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
+  const handleOptionsClick = () => {
+    console.log('Handeling Options Click');
+  };
+
   return (
     <li className="flex mb-2 pr-4">
       <div className="timeline flex flex-col items-center">
@@ -52,15 +58,28 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
       </div>
       <div className="prayerContent flex flex-col flex-1">
         <div
-          className={`prayer-card min-h-[130px] transition duration-300 ease-out  bg-sky-950 flex flex-col p-4 pb-2 pr-12 rounded-md mb-1 justify-between ${
+          className={`prayer-card min-h-[130px] transition duration-300 ease-out  bg-sky-950/20 flex flex-col p-4 pb-2 rounded-md mb-1 justify-between ${
             isItemSaved ? 'shadow-glow' : ''
           }`}
         >
-          <div className="user-info text-xs text-gray-400 mb-1">
-            <b className="text-gray-400">{item.username}</b> •{' '}
-            <span>célula {item.cell}</span>
+          <div className="flex justify-between items-center mb-3">
+            <div className="user-info text-xs text-gray-400">
+              <b className="text-gray-400">{item.username}</b> •{' '}
+              <span>célula {item.cell}</span>
+            </div>
+            <div>
+              <button
+                className="text-xxs text-gray-400 flex flex-col items-center"
+                type="button"
+                onClick={() => handleOptionsClick()}
+              >
+                <EllipsisVerticalIcon className="h-5 w-5 text-gray-400" />
+              </button>
+            </div>
           </div>
-          <div className="time-ago flex items-center text-xxs text-gray-500 mb-4">
+
+          <div className={`text-sm text-gray-100 mb-2`}>{item.body}</div>
+          <div className="time-ago flex items-center text-gray-400 mb-4">
             <ReactTimeAgo
               className="text-center text-xs"
               timeStyle="round-minute"
@@ -68,7 +87,6 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
               locale="pt-Br"
             />
           </div>
-          <div className={`text-sm text-gray-100 mb-5`}>{item.body}</div>
           <div className="prayer-button pl-2 pt-2 w-full border-t border-gray-400 border-opacity-10">
             <Form method="post">
               <input

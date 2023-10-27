@@ -1,8 +1,8 @@
 import { useSWEffect } from '~/utils/client/sw-hook';
 import type { V2_MetaFunction } from '@remix-run/react';
-import { Link } from '@remix-run/react';
 import {
   Links,
+  Link,
   LiveReload,
   Meta,
   Outlet,
@@ -161,7 +161,7 @@ export default function App() {
           `}
         </style>
       </head>
-      <body className="bg-slate-900 h-full">
+      <body className="bg-slate-950 h-full">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

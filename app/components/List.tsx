@@ -16,7 +16,7 @@ export const List = ({
   user,
 }: ListProperties) => {
   return (
-    <div className="container flex flex-col items-center justify-center w-full mx-auto bg-slate-900 rounded-lg shadow">
+    <div className="container flex flex-col items-center justify-center w-full mx-auto bg-slate-950 rounded-lg shadow">
       {collection.length === 0 ? (
         <p className="p-4 text-gray-400">
           Está célula não possui nenhum pedido de oração ainda.

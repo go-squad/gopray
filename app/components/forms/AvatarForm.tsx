@@ -1,8 +1,25 @@
 import { Form, useFetcher } from '@remix-run/react';
-import type { FormEvent, ReactNode } from 'react';
+import { useEffect, type FormEvent, type ReactNode } from 'react';
+import { FetcherStatus } from '~/models/fetcher.model';
 
-const AvatarForm = ({ children }: { children: ReactNode }) => {
+const AvatarForm = ({
+  children,
+  avatarState,
+}: {
+  children: ReactNode;
+  avatarState: (state: boolean) => void;
+}) => {
   const avatarAPI = useFetcher();
+
+  useEffect(() => {
+    if (avatarAPI.state !== FetcherStatus.Loading && !!avatarAPI.data) {
+      avatarState(false);
+    }
+  }, [avatarAPI, avatarState]);
+
+  const handleClick = () => {
+    avatarState(true);
+  };
 
   const handleChange = (event: FormEvent<HTMLFormElement>) => {
     const formData = new FormData(event.currentTarget);
@@ -25,7 +42,13 @@ const AvatarForm = ({ children }: { children: ReactNode }) => {
     >
       <label htmlFor="avatar" className="flex cursor-pointer justify-center">
         {children}
-        <input id="avatar" name="avatar" type="file" className="hidden" />
+        <input
+          id="avatar"
+          name="avatar"
+          type="file"
+          className="hidden"
+          onClick={handleClick}
+        />
       </label>
     </Form>
   );
