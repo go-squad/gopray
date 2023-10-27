@@ -7,8 +7,8 @@ import {
 import type { LoaderFunction, V2_MetaFunction } from '@remix-run/node';
 import { Form, useActionData, useLoaderData } from '@remix-run/react';
 import { useCallback, useEffect, useState } from 'react';
-import { MainFooter } from '~/components/MainFooter';
-import { TopHeader } from '~/components/TopHeader';
+
+import { MainFooter } from '~/components/layout/MainFooter';
 import { requireUser } from '~/services/session.server';
 import fallback from '../assets/images/pray.jpg';
 import type { action } from './_protected.profile.edit';
@@ -19,6 +19,7 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from 'react-share';
+import { TopHeader } from '~/components/layout/TopHeader';
 import AvatarForm from '../components/forms/AvatarForm';
 
 export const loader: LoaderFunction = async ({ request }) => {

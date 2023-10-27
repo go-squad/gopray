@@ -1,23 +1,24 @@
-import { BookmarkIcon } from '@heroicons/react/24/solid';
 import { useFetcher } from '@remix-run/react';
 import { useState } from 'react';
+import PrayIcon from '../icons/PrayIcon';
 
-const SavePrayerForm = ({
+const ShowPrayerSupport = ({
   requestId,
-  isSavedInPrayerList,
+  isItemSaved,
 }: {
   requestId: string;
-  isSavedInPrayerList: boolean;
+  isItemSaved: boolean;
 }) => {
-  const [isSaved, setIsSaved] = useState(isSavedInPrayerList);
+  const [isSaved, setIsSaved] = useState(isItemSaved);
   const fetcher = useFetcher();
 
   const handleClick = () => {
+    console.log('valeu:', isSaved);
     fetcher.submit(
       { requestId, isSaved },
       {
         method: 'post',
-        action: '/prayers/save-prayer',
+        action: '/prayers/show-support',
       }
     );
     setIsSaved(state => !state);
@@ -32,11 +33,11 @@ const SavePrayerForm = ({
         type="button"
         onClick={handleClick}
       >
-        <BookmarkIcon className="h-4 w-4 mr-1" />
-        <span>Salvar</span>
+        <PrayIcon svgFill={isSaved ? 'fill-sky-500' : 'fill-gray-400'} />
+        <span className={isSaved ? 'text-sky-500' : 'text-gray-400'}>Orar</span>
       </button>
     </div>
   );
 };
 
-export default SavePrayerForm;
+export default ShowPrayerSupport;

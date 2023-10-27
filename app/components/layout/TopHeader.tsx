@@ -1,6 +1,6 @@
 import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid';
 import { Link } from '@remix-run/react';
-import OremLogo from './OremLogo';
+import OremLogo from '../icons/OremLogo';
 
 type HeaderProperties = {
   title: string;

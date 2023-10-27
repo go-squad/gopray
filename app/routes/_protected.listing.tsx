@@ -3,8 +3,9 @@ import { ArchiveBoxXMarkIcon, BookmarkIcon } from '@heroicons/react/24/solid';
 import type { LoaderFunction, V2_MetaFunction } from '@remix-run/node';
 import { useFetcher, useLoaderData } from '@remix-run/react';
 import type { Key } from 'react';
-import { MainFooter } from '~/components/MainFooter';
-import { TopHeader } from '~/components/TopHeader';
+import { MainFooter } from '~/components/layout/MainFooter';
+import { TopHeader } from '~/components/layout/TopHeader';
+
 import type { Prayer } from '~/models/prayer.model';
 import { fetchPrayersByIds } from '~/services/prayer.server';
 import { getSavedPrayersIdsByUserId } from '~/services/saved-prayers.server';

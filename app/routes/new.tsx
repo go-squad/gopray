@@ -3,7 +3,8 @@ import type { ActionArgs, V2_MetaFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 import { Form, useActionData } from '@remix-run/react';
 import { useEffect, useRef, useState } from 'react';
-import { TopHeader } from '~/components/TopHeader';
+import { TopHeader } from '~/components/layout/TopHeader';
+
 import { createPrayerRequest } from '~/services/prayer.server';
 import { requireUser } from '~/services/session.server';
 
