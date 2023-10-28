@@ -3,8 +3,8 @@ import { database } from './prisma.server';
 export const getRequestSavedStatusById = async (
   userId: string,
   requestId: string
-) => {
-  return await database.requestPray.findUnique({
+): Promise<boolean> => {
+  const isSaved = await database.requestPray.findUnique({
     where: {
       userId_requestId: {
         userId,
@@ -12,6 +12,7 @@ export const getRequestSavedStatusById = async (
       },
     },
   });
+  return !!isSaved;
 };
 
 export const prayForRequestWithId = async (

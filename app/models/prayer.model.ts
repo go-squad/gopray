@@ -6,9 +6,10 @@ export interface Prayer {
   surname?: string | null | undefined;
   email?: string;
   avatarUrl?: string | null | undefined;
-  cell: string | null | undefined;
+  cell?: string | null | undefined;
   avatar?: string | null | undefined;
-  saved: any;
+  saved?: any;
+  isSavedInPrayerList?: any;
   createdAt: Date;
   updatedAt?: Date;
   userId: string;

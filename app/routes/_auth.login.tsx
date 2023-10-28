@@ -15,7 +15,7 @@ import {
   useSearchParams,
 } from '@remix-run/react';
 import { useEffect, useRef } from 'react';
-import OremLogo from '~/components/OremLogo';
+import OremLogo from '~/components/icons/OremLogo';
 import { createUserSession, getUserId } from '~/services/session.server';
 import { verifyLogin } from '~/services/user.server';
 import { safeRedirect } from '~/utils/server/safe-redirect';

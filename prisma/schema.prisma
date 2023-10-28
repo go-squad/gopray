@@ -3,29 +3,28 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DATABASE_DIRECT_URL")
 }
 
-
 model User {
-  id          String        @id @default(cuid())
-  email       String        @unique
-  givenName   String?
-  surname     String?
-  displayName String?
-  avatarUrl   String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  cellId      String
-  churchId    String        @default("idigrejaoceanica")
-  password    Password?
-  requests    Request[]
-  cell        Cell          @relation(fields: [cellId], references: [id])
-  Church      Church        @relation(fields: [churchId], references: [id])
-  RequestPray RequestPray[]
-
+  id           String         @id @default(cuid())
+  email        String         @unique
+  givenName    String?
+  surname      String?
+  displayName  String?
+  avatarUrl    String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  cellId       String
+  churchId     String         @default("idigrejaoceanica")
+  password     Password?
+  requests     Request[]
+  cell         Cell           @relation(fields: [cellId], references: [id])
+  Church       Church         @relation(fields: [churchId], references: [id])
+  RequestPray  RequestPray[]
+  SavedPrayers SavedPrayers[]
 }
 
 model Password {
@@ -35,16 +34,17 @@ model Password {
 }
 
 model Request {
-  id          String        @id @default(cuid())
-  body        String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  userId      String
-  cellId      String?
+  id           String         @id @default(cuid())
+  body         String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  userId       String
+  cellId       String?
   prayingCount Int?
-  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  RequestPray RequestPray[]
-  audience    Audience      @default(CELL)
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  audience     Audience       @default(CELL)
+  RequestPray  RequestPray[]
+  SavedPrayers SavedPrayers[]
 }
 
 model Cell {
@@ -67,14 +67,24 @@ model Church {
 }
 
 model RequestPray {
-  id        Int     @id @default(autoincrement())
-  user      User    @relation(fields: [userId], references: [id])
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
   userId    String
-  request   Request @relation(fields: [requestId], references: [id])
+  request   Request  @relation(fields: [requestId], references: [id])
   requestId String
   createdAt DateTime @default(now())
 
   @@unique([userId, requestId])
+}
+
+model SavedPrayers {
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  request   Request  @relation(fields: [requestId], references: [id])
+  requestId String
+  createdAt DateTime @default(now())
+
+  @@id([userId, requestId])
 }
 
 enum Audience {
