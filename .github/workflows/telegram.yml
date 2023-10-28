@@ -14,13 +14,8 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} created a PR:
-            CHANGED files: ${{ github.event.pull_request.changed_files}}
-            HTML URL: ${{ github.event.pull_request.html_url}}
-            URL: ${{ github.event.pull_request.url}}
-            USER: ${{ github.event.pull_request.user}}
-            Title: ${{ github.event.pull_request.user}}
+            ${{ github.event.pull_request.user.name }} created a new PR 🎉
+            Title: ${{ github.event.pull_request.title}}
+            Changes: ➕ ${{ github.event.pull_request.additions}} | ➖ ${{ github.event.pull_request.deletions}}
 
-            Repository: ${{ github.repository }}
-
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+            Check it out: ${{ github.event.pull_request.html_url}}
