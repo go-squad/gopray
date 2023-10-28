@@ -20,7 +20,3 @@ jobs:
             URL: ${{ github.event.pull_request.url}}
             USER: ${{ github.event.pull_request.user}}
             Title: ${{ github.event.pull_request.user}}
-
-            Repository: ${{ github.repository }}
-
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
