@@ -15,9 +15,6 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             ${{ github.event.pull_request.user.login }} created a new PR 🎉
-            **${{ github.event.pull_request.title}}**
-
-            __🗒️ Files changed: ${{ github.event.pull_request.changed_files}}__
-
+            ${{ github.event.pull_request.title}}
 
             Check it out: 👉 ${{ github.event.pull_request.html_url}}
