@@ -9,14 +9,14 @@ import { TopHeader } from '~/components/layout/TopHeader';
 import type { Prayer } from '~/models/prayer.model';
 import { fetchPrayersByIds } from '~/services/prayer.server';
 import { getSavedPrayersIdsByUserId } from '~/services/saved-prayers.server';
-import { requireUser } from '~/services/session.server';
+import { getUserId } from '~/services/session.server';
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await requireUser(request);
-  const prayersIds = await getSavedPrayersIdsByUserId(user.id);
+  const userId = await getUserId(request);
+  const prayersIds = await getSavedPrayersIdsByUserId(userId as string);
   const prayers = await fetchPrayersByIds(prayersIds);
 
-  return { prayers: prayers?.slice(0, 10), user };
+  return { prayers: prayers?.slice(0, 10) };
 };
 
 export const meta: V2_MetaFunction = () => {
