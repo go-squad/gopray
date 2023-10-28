@@ -6,7 +6,7 @@ import type { User } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import ReactTimeAgo from 'react-time-ago';
 import type { Prayer } from '~/models/prayer.model';
-import fallback from '../assets/images/pray.jpg';
+import fallback from '../../assets/images/pray.jpg';
 import SavePrayer from './SavePrayer';
 import ShowPrayerSupport from './ShowPrayerSupport';
 
