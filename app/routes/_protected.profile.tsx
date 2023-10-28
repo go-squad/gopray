@@ -7,8 +7,8 @@ import {
 import type { LoaderFunction, V2_MetaFunction } from '@remix-run/node';
 import { Form, useActionData, useLoaderData } from '@remix-run/react';
 import { useCallback, useEffect, useState } from 'react';
-import { MainFooter } from '~/components/MainFooter';
-import { TopHeader } from '~/components/TopHeader';
+
+import { MainFooter } from '~/components/layout/MainFooter';
 import { requireUser } from '~/services/session.server';
 import fallback from '../assets/images/pray.jpg';
 import type { action } from './_protected.profile.edit';
@@ -19,6 +19,7 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from 'react-share';
+import { TopHeader } from '~/components/layout/TopHeader';
 import AvatarForm from '../components/forms/AvatarForm';
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -39,12 +40,13 @@ async function copyTextToClipboard(text: string) {
 
 const Profile = () => {
   const { user } = useLoaderData();
-  const [isCopied, setIsCopied] = useState(false);
-  const invitationTemplate = `Olá, será um prazer ter você conosco em nosso grupo de oração. Para entrar basta você se cadastrar no app do Orem Club nesse link aqui app.orem.club/signup?invitation=${user.cellId}`;
   const actionData = useActionData<typeof action>();
+  const [isCopied, setIsCopied] = useState(false);
   const [avatar, setAvatar] = useState('');
   const [isAvatarUploading, setIsAvatarUploading] = useState(false);
+
   const sizeIcons = 30;
+  const invitationTemplate = `Olá, será um prazer ter você conosco em nosso grupo de oração. Para entrar basta você se cadastrar no app do Orem Club nesse link aqui app.orem.club/signup?invitation=${user.cellId}`;
 
   useEffect(() => {
     if (user?.avatarUrl) {

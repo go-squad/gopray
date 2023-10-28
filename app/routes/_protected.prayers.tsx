@@ -1,20 +1,21 @@
-import { useLoaderData } from '@remix-run/react';
-import { List } from '../components/List';
-import { listPrayerRequests } from '../services/prayer.server';
 import type {
   ActionArgs,
   LoaderFunction,
   V2_MetaFunction,
 } from '@remix-run/node';
 import { json } from '@remix-run/node';
-import { requireUser } from '~/services/session.server';
+import { useLoaderData } from '@remix-run/react';
+
+import { MainFooter } from '~/components/layout/MainFooter';
+import { TopHeader } from '~/components/layout/TopHeader';
 import { getChurch } from '~/services/church.server';
-import { MainFooter } from '~/components/MainFooter';
-import { TopHeader } from '~/components/TopHeader';
 import {
   prayForRequestWithId,
   removePrayForRequestWithId,
 } from '~/services/request-pray.server';
+import { requireUser } from '~/services/session.server';
+import { List } from '../components/prayers/List';
+import { listPrayerRequests } from '../services/prayer.server';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireUser(request);

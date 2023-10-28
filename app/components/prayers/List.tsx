@@ -1,7 +1,6 @@
-import React from 'react';
-import { ListItem } from './ListItem';
 import type { User } from '@prisma/client';
-import { Prayer } from '~/models/prayer.model';
+import type { Prayer } from '~/models/prayer.model';
+import { ListItem } from './ListItem';
 
 type ListProperties = {
   title: string;
@@ -9,12 +8,7 @@ type ListProperties = {
   collection: Prayer[];
   user: User;
 };
-export const List = ({
-  title,
-  description,
-  collection,
-  user,
-}: ListProperties) => {
+export const List = ({ collection, user }: ListProperties) => {
   return (
     <div className="container flex flex-col items-center justify-center w-full mx-auto bg-slate-950 rounded-lg shadow">
       {collection.length === 0 ? (
