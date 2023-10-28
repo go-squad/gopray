@@ -1,5 +1,9 @@
-name: telegram message
+name: Telegram Notification
+# on:
+#   pull_request:
+#     types: ready_for_review
 on: [push]
+
 jobs:
   build:
     name: Build
@@ -11,8 +15,12 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
+            ${{ github.actor }} created a PR:
+            CHANGED files: ${{ github.event.pull_request.changed_files}}
+            HTML URL: ${{ github.event.pull_request.html_url}}
+            URL: ${{ github.event.pull_request.url}}
+            USER: ${{ github.event.pull_request.user}}
+            Title: ${{ github.event.pull_request.user}}
 
             Repository: ${{ github.repository }}
 
