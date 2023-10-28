@@ -44,13 +44,13 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
     <li className="flex mb-1">
       <div className="prayerContent flex flex-col flex-1">
         <div
-          className={`prayer-card min-h-[130px] transition duration-300 ease-out  bg-sky-950/20 flex flex-col p-4 pb-2 rounded-md mb-1 justify-between ${
+          className={`prayer-card transition duration-300 ease-out  bg-sky-950/20 flex flex-col p-4 pb-2 rounded-md mb-1 justify-between ${
             item.saved ? 'shadow-glow' : ''
           }`}
         >
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-px">
             <div className="flex items-center">
-              <div className="avatar relative block mr-2">
+              <div className="h-6 avatar mr-2">
                 {item.avatarUrl ? (
                   <img
                     alt="profile"
@@ -58,8 +58,10 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
                     className="mx-auto object-cover rounded-full h-6 w-6 "
                   />
                 ) : (
-                  <div className="relative inline-flex items-center justify-center w-6 h-6 overflow-hidden rounded-full bg-gray-600">
-                    <span className="font-medium text-gray-300">{avatar}</span>
+                  <div className="text-sm relative inline-flex items-center justify-center w-6 h-6 overflow-hidden rounded-full bg-gray-600">
+                    <span className="font-medium absolute text-gray-300">
+                      {avatar || '@'}
+                    </span>
                   </div>
                 )}
               </div>
