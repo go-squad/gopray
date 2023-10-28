@@ -82,7 +82,7 @@ const Listing = () => {
                     <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                       {item.username}
                     </p>
-                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
                       {item.body}
                     </p>
                   </div>
