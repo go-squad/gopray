@@ -1,5 +1,5 @@
-import { json } from '@remix-run/node';
 import type { LoaderFunction } from '@remix-run/node';
+import { json } from '@remix-run/node';
 
 export const loader: LoaderFunction = async () => {
   return json(
@@ -11,8 +11,8 @@ export const loader: LoaderFunction = async () => {
       display: 'standalone',
       display_override: ['window-controls-overlay', 'standalone', 'browser'],
       description: 'Aplicação de gerenciamento de orações',
-      background_color: '#0f182a',
-      theme_color: '#0f182a',
+      background_color: '#020617',
+      theme_color: '#020617',
       orientation: 'portrait-primary',
       categories: ['lifestyle', 'social', 'spiritual'],
       dir: 'ltr',

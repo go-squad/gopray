@@ -1,70 +1,40 @@
-import type {
-  ActionArgs,
-  LoaderFunction,
-  V2_MetaFunction,
-} from '@remix-run/node';
-import { json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { type V2_MetaFunction } from '@remix-run/node';
+import { NavLink, Outlet } from '@remix-run/react';
 
 import { MainFooter } from '~/components/layout/MainFooter';
 import { TopHeader } from '~/components/layout/TopHeader';
-import { getChurch } from '~/services/church.server';
-import {
-  prayForRequestWithId,
-  removePrayForRequestWithId,
-} from '~/services/request-pray.server';
-import { requireUser } from '~/services/session.server';
-import { List } from '../components/prayers/List';
-import { listPrayerRequests } from '../services/prayer.server';
-
-export const loader: LoaderFunction = async ({ request }) => {
-  const user = await requireUser(request);
-  const church = await getChurch({ churchId: user.churchId });
-  const prayers = await listPrayerRequests({
-    cellId: user.cellId,
-    loggedUserId: user.id,
-  });
-
-  return { prayers: prayers?.slice(0, 10), church, user };
-};
-
-export const action = async ({ request }: ActionArgs) => {
-  const formData = await request.formData();
-  const userId = formData.get('userId') as string;
-  const requestId = formData.get('requestId') as string;
-  const action = formData.get('prayAction') as 'on' | 'off';
-
-  if (!userId || !requestId || !action) {
-    return json(
-      { errors: { userId: 'Invalid user or request' } },
-      { status: 400 }
-    );
-  }
-
-  const actionMap = {
-    on: prayForRequestWithId,
-    off: removePrayForRequestWithId,
-  };
-
-  return await actionMap[action](requestId, userId);
-};
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: 'Prayers | Orem Club' }];
 };
 
 const Prayers = () => {
-  const { prayers, church, user } = useLoaderData();
-
   return (
     <>
-      <TopHeader title={church.name} />
-      <List
-        title={church.name}
-        description="Lista com os últimos pedidos de oração"
-        collection={prayers}
-        user={user}
-      />
+      <TopHeader />
+      <div className="flex px-6 mb-2">
+        <NavLink
+          to="church-tab"
+          className={({ isActive, isPending }: any) =>
+            `${
+              isActive ? 'active border-b-4 border-orem-500' : 'text-gray-400'
+            } text-lg text-gray-200 min-w-[70px] text-center mr-2 px-1 py-2`
+          }
+        >
+          <span className="group-[.active]:hidden mt-1">Igreja</span>
+        </NavLink>
+        <NavLink
+          to="cell-tab"
+          className={({ isActive, isPending }: any) =>
+            `${
+              isActive ? 'active border-b-4 border-orem-500' : 'text-gray-400'
+            } text-lg text-gray-200 min-w-[70px] text-center  mr-2 px-1 py-2`
+          }
+        >
+          <span className="group-[.active]:hidden mt-1">Célula</span>
+        </NavLink>
+      </div>
+      <Outlet />
       <MainFooter />
     </>
   );

@@ -16,11 +16,11 @@ export const List = ({ collection, user }: ListProperties) => {
           Está célula não possui nenhum pedido de oração ainda.
         </p>
       ) : (
-        <ul className="flex flex-col w-full">
+        <ul className="flex flex-col w-full divide-y divide-gray-700">
           {collection.map((item, index) => (
             <ListItem key={index} item={item} user={user} />
           ))}
-          <li className="mb-16"></li>
+          <li className="mb-20"></li>
         </ul>
       )}
     </div>
