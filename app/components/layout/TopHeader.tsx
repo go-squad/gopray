@@ -3,7 +3,7 @@ import { Link } from '@remix-run/react';
 import OremLogo from '../icons/OremLogo';
 
 type HeaderProperties = {
-  title: string;
+  title?: string;
   isHome?: boolean;
   children?: any;
 };

@@ -26,13 +26,13 @@ const SavePrayer = ({
   return (
     <div className="flex w-fit flex-col items-center space-y-1 text-center">
       <button
-        className={`text-xs text-gray-400 flex items-center ${
+        className={`text-sm text-gray-400 flex items-center ${
           isSaved ? 'text-sky-500' : 'text-gray-400'
         }`}
         type="button"
         onClick={handleClick}
       >
-        <BookmarkIcon className="h-4 w-4 mr-1" />
+        <BookmarkIcon className="h-5 w-5 mr-1" />
         <span>Salvar</span>
       </button>
     </div>

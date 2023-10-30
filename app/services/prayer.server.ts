@@ -1,4 +1,5 @@
-import type { Audience, Cell, Request, User } from '@prisma/client';
+import type { Cell, Church, Request, User } from '@prisma/client';
+import { Audience } from '@prisma/client';
 import type { Prayer } from '~/models/prayer.model';
 import { getCellById } from './cell.server';
 import { database } from './prisma.server';
@@ -7,15 +8,21 @@ import { getPrayerSavedStatus } from './saved-prayers.server';
 import { getUserById } from './user.server';
 
 export const listPrayerRequests = async ({
-  cellId,
+  id,
   loggedUserId,
+  audience,
 }: {
-  cellId: Cell['id'];
+  id: Cell['id'] | Church['id'];
   loggedUserId: User['id'];
+  audience: Audience;
 }): Promise<Prayer[]> => {
+  let filters = {};
+  filters =
+    audience === Audience.CHURCH ? { churchId: id, audience } : { cellId: id };
+
   try {
     const requests = await database.request.findMany({
-      where: { cellId },
+      where: { ...filters },
       select: {
         id: true,
         body: true,
@@ -29,7 +36,7 @@ export const listPrayerRequests = async ({
     const prayers = [];
     for (const request of requests) {
       const user = await getUserById(request.userId);
-      const cell = await getCellById(cellId);
+      const cell = await getCellById(user.cellId!);
       const isSaved = await getRequestSavedStatusById(loggedUserId, request.id);
       const isSavedInPrayerList = await getPrayerSavedStatus(
         request.id,
@@ -59,22 +66,21 @@ export const createPrayerRequest = ({
   body,
   userId,
   cellId,
+  churchId,
   audience,
 }: Pick<Request, 'body'> & {
   userId: User['id'];
   cellId: Cell['id'];
+  churchId: Church['id'];
   audience: Audience;
 }) => {
   return database.request.create({
     data: {
       body,
-      cellId: cellId,
+      cellId,
+      churchId,
       audience,
-      user: {
-        connect: {
-          id: userId,
-        },
-      },
+      userId,
     },
   });
 };

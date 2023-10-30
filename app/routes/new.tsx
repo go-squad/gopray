@@ -49,6 +49,7 @@ export const action = async ({ request }: ActionArgs) => {
     body,
     userId: user.id,
     cellId: user.cellId,
+    churchId: user.churchId,
     audience: audience,
   });
 

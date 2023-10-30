@@ -3,6 +3,7 @@ import { ArchiveBoxXMarkIcon, BookmarkIcon } from '@heroicons/react/24/solid';
 import type { LoaderFunction, V2_MetaFunction } from '@remix-run/node';
 import { useFetcher, useLoaderData } from '@remix-run/react';
 import type { Key } from 'react';
+import EmptyContentIcon from '~/components/icons/EmptyContent';
 import { MainFooter } from '~/components/layout/MainFooter';
 import { TopHeader } from '~/components/layout/TopHeader';
 
@@ -53,50 +54,65 @@ const Listing = () => {
     <>
       <TopHeader title={'Lista de Oração'} isHome={false}></TopHeader>
 
-      <div className="w-full max-w-md p-4 shadow sm:p-8">
-        <div className="flex items-center justify-between mb-4">
-          <h5 className="flex text-xl font-bold leading-none text-gray-900 dark:text-white">
-            <BookmarkIcon className="h-5 w-5 mr-2" />
-            Recém Adicionados
-          </h5>
-        </div>
+      <div className="w-full max-w-md p-4 shadow">
         <div className="flow-root">
-          <ul className="divide-y divide-gray-200 dark:divide-gray-700 mb-20">
-            {prayers.map((item: Prayer, index: Key | null | undefined) => (
-              <li key={index} className="py-3 sm:py-4">
-                <div className="flex items-center space-x-4">
-                  <div className="flex-shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-600">
-                    {item.avatarUrl ? (
-                      <img
-                        alt=""
-                        src={item.avatarUrl}
-                        className="mx-auto object-cover rounded-full h-8 w-8"
-                      />
-                    ) : (
-                      <span className="h-8 w-8 flex items-center justify-center font-medium text-gray-300">
-                        {setAvatar(item)}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      {item.username}
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {item.body}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-orem-500"
-                    onClick={() => handlePrayerRemoval(item.id)}
-                  >
-                    <ArchiveBoxXMarkIcon className="w-5" />
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
+          {prayers?.length === 0 ? (
+            <div className="flex flex-col items-center">
+              <EmptyContentIcon className="w-full mb-2" />
+              <h2 className="text-xl font-bold text-center text-gray-300 mb-1">
+                Você ainda não tem oraçoes em sua lista!
+              </h2>
+              <p className="text-gray-400 text-center">
+                Para adicionar orações em sua lista de orações recorrentes pasta
+                clicar em salvar que elas irão aparecer aqui! :)
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="flex items-center justify-between mb-4">
+                <h5 className="flex text-xl font-bold leading-none text-white">
+                  <BookmarkIcon className="h-5 w-5 mr-2" />
+                  Recém Adicionados
+                </h5>
+              </div>
+              <ul className="divide-y divide-gray-700 mb-20">
+                {prayers.map((item: Prayer, index: Key | null | undefined) => (
+                  <li key={index} className="py-3 sm:py-4">
+                    <div className="flex items-center space-x-4">
+                      <div className="flex-shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-600">
+                        {item.avatarUrl ? (
+                          <img
+                            alt=""
+                            src={item.avatarUrl}
+                            className="mx-auto object-cover rounded-full h-8 w-8"
+                          />
+                        ) : (
+                          <span className="h-8 w-8 flex items-center justify-center font-medium text-gray-300">
+                            {setAvatar(item)}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate text-white">
+                          {item.username}
+                        </p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {item.body}
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        className="inline-flex items-center text-base font-semibold text-orem-500"
+                        onClick={() => handlePrayerRemoval(item.id)}
+                      >
+                        <ArchiveBoxXMarkIcon className="w-5" />
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       </div>
 

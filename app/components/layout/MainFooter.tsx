@@ -22,7 +22,7 @@ export const MainFooter = () => {
           >
             <HomeIcon className="h-5 w-5 text-gray-400 group-[.active]:text-gray-950" />
             <span className="group-[.active]:hidden font-light text-xs mt-1">
-              Pedidos
+              Mural
             </span>
           </NavLink>
         </div>
@@ -75,8 +75,3 @@ export const MainFooter = () => {
     </div>
   );
 };
-
-// className={`${(isActive: boolean) =>
-//   isActive
-//     ? 'bg-sky-500'
-//     : ''} flex justify-center flex-col items-center min-w-[55px]`}

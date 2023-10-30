@@ -1,52 +1,30 @@
-import type {
-  ActionArgs,
-  LoaderFunction,
-  V2_MetaFunction,
-} from '@remix-run/node';
-import { json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { Audience } from '@prisma/client';
+import { type LoaderFunction, type V2_MetaFunction } from '@remix-run/node';
+import { NavLink, useLoaderData } from '@remix-run/react';
 
 import { MainFooter } from '~/components/layout/MainFooter';
 import { TopHeader } from '~/components/layout/TopHeader';
+import { List } from '~/components/prayers/List';
 import { getChurch } from '~/services/church.server';
-import {
-  prayForRequestWithId,
-  removePrayForRequestWithId,
-} from '~/services/request-pray.server';
+import { listPrayerRequests } from '~/services/prayer.server';
 import { requireUser } from '~/services/session.server';
-import { List } from '../components/prayers/List';
-import { listPrayerRequests } from '../services/prayer.server';
 
 export const loader: LoaderFunction = async ({ request }) => {
+  const url = new URL(await request.url);
+  const audience =
+    (url.searchParams.get('audience') as unknown as Audience) || Audience.CELL;
   const user = await requireUser(request);
-  const church = await getChurch({ churchId: user.churchId });
-  const prayers = await listPrayerRequests({
-    cellId: user.cellId,
+  const churchId = user?.churchId;
+  const church = await getChurch({ churchId });
+  const cellId = user?.cellId;
+
+  let prayers = await listPrayerRequests({
+    id: audience === Audience.CHURCH ? churchId : cellId,
     loggedUserId: user.id,
+    audience,
   });
 
-  return { prayers: prayers?.slice(0, 10), church, user };
-};
-
-export const action = async ({ request }: ActionArgs) => {
-  const formData = await request.formData();
-  const userId = formData.get('userId') as string;
-  const requestId = formData.get('requestId') as string;
-  const action = formData.get('prayAction') as 'on' | 'off';
-
-  if (!userId || !requestId || !action) {
-    return json(
-      { errors: { userId: 'Invalid user or request' } },
-      { status: 400 }
-    );
-  }
-
-  const actionMap = {
-    on: prayForRequestWithId,
-    off: removePrayForRequestWithId,
-  };
-
-  return await actionMap[action](requestId, userId);
+  return { prayers: prayers?.slice(0, 10), church, user, audience };
 };
 
 export const meta: V2_MetaFunction = () => {
@@ -54,11 +32,33 @@ export const meta: V2_MetaFunction = () => {
 };
 
 const Prayers = () => {
-  const { prayers, church, user } = useLoaderData();
+  const { prayers, church, user, audience } = useLoaderData();
 
   return (
     <>
-      <TopHeader title={church.name} />
+      <TopHeader />
+      <div className="flex px-6 mb-2">
+        <NavLink
+          to="?audience=CHURCH"
+          className={`${
+            audience === 'CHURCH'
+              ? 'active border-b-4 border-orem-500'
+              : 'text-gray-400'
+          } text-lg text-gray-200 min-w-[70px] text-center mr-2 px-1 py-2`}
+        >
+          <span className="group-[.active]:hidden mt-1">Igreja</span>
+        </NavLink>
+        <NavLink
+          to="?audience=CELL"
+          className={`${
+            audience === 'CELL'
+              ? 'active border-b-4 border-orem-500'
+              : 'text-gray-400'
+          } text-lg text-gray-200 min-w-[70px] text-center  mr-2 px-1 py-2`}
+        >
+          <span className="group-[.active]:hidden mt-1">Célula</span>
+        </NavLink>
+      </div>
       <List
         title={church.name}
         description="Lista com os últimos pedidos de oração"
