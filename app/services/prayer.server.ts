@@ -63,7 +63,6 @@ export const listPrayerByChurchId = async ({
   loggedUserId: User['id'];
 }): Promise<Prayer[]> => {
   try {
-    console.log('church id:', churchId);
     const requests = await database.request.findMany({
       where: { churchId, audience: 'CHURCH' },
       select: {
