@@ -1,15 +1,15 @@
-import { useSWEffect } from '~/utils/client/sw-hook';
+import type { LinksFunction } from '@remix-run/node'; // or cloudflare/deno
 import type { V2_MetaFunction } from '@remix-run/react';
 import {
-  Links,
   Link,
+  Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import type { LinksFunction } from '@remix-run/node'; // or cloudflare/deno
+import { useSWEffect } from '~/utils/client/sw-hook';
 import styles from './tailwind.css';
 
 import TimeAgo from 'javascript-time-ago';
@@ -161,7 +161,7 @@ export default function App() {
           `}
         </style>
       </head>
-      <body className="bg-slate-950 h-full">
+      <body className="bg-slate-950">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

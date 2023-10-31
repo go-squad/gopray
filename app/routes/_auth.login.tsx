@@ -1,5 +1,4 @@
 /* eslint-disable unicorn/no-null */
-import { BookOpenIcon } from '@heroicons/react/24/solid';
 import type {
   ActionArgs,
   ActionFunction,
@@ -15,6 +14,7 @@ import {
   useSearchParams,
 } from '@remix-run/react';
 import { useEffect, useRef } from 'react';
+import RandomBibleReader from '~/components/bible-reader/BibleReader';
 import OremLogo from '~/components/icons/OremLogo';
 import { createUserSession, getUserId } from '~/services/session.server';
 import { verifyLogin } from '~/services/user.server';
@@ -225,17 +225,7 @@ export const Login = () => {
             </div>
           </div> */}
         </div>
-        <div className="flex flex-col items-center">
-          <BookOpenIcon className="text-gray-400 w-8 mt-6" />
-          <p className="p-px text-sm text-center italic text-gray-400 mt-3 mb-2">
-            Não deixemos de reunir-nos como igreja, segundo o costume de alguns,
-            mas procuremos encorajar-nos uns aos outros, ainda mais quando vocês
-            veem que se aproxima o Dia.
-          </p>
-          <span className="text-sm font-bold text-gray-300">
-            Hebreus 10:24-25
-          </span>
-        </div>
+        <RandomBibleReader />
       </div>
     </div>
   );
