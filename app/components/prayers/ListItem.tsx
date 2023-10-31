@@ -61,12 +61,12 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
         >
           <div className="flex justify-between items-center mb-1">
             <div className="flex items-center">
-              <div className="h-7 avatar mr-2">
+              <div className="h-7 w-7 avatar mr-2">
                 {item.avatarUrl ? (
                   <img
                     alt="profile"
                     src={item.avatarUrl || fallback}
-                    className="mx-auto object-cover rounded-full w-7"
+                    className="mx-auto object-cover rounded-full h-7 w-7"
                   />
                 ) : (
                   <div className="text-base relative inline-flex items-center justify-center h-7 w-7 overflow-hidden rounded-full bg-gray-600">

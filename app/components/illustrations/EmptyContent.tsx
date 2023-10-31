@@ -1,4 +1,4 @@
-export const EmptyContentIcon = ({ className }: { className: string }) => {
+const EmptyContentIcon = ({ className }: { className: string }) => {
   return (
     <svg
       className={className}

@@ -3,7 +3,7 @@ import { ArchiveBoxXMarkIcon, BookmarkIcon } from '@heroicons/react/24/solid';
 import type { LoaderFunction, V2_MetaFunction } from '@remix-run/node';
 import { useFetcher, useLoaderData } from '@remix-run/react';
 import type { Key } from 'react';
-import EmptyContentIcon from '~/components/icons/EmptyContent';
+import { EmptyState } from '~/components/empty-state/EmptyState';
 import { MainFooter } from '~/components/layout/MainFooter';
 import { TopHeader } from '~/components/layout/TopHeader';
 
@@ -57,16 +57,11 @@ const Listing = () => {
       <div className="w-full max-w-md p-4 shadow">
         <div className="flow-root">
           {prayers?.length === 0 ? (
-            <div className="flex flex-col items-center">
-              <EmptyContentIcon className="w-full mb-2" />
-              <h2 className="text-xl font-bold text-center text-gray-300 mb-1">
-                Você ainda não tem oraçoes em sua lista!
-              </h2>
-              <p className="text-gray-400 text-center">
-                Para adicionar orações em sua lista de orações recorrentes pasta
-                clicar em salvar que elas irão aparecer aqui! :)
-              </p>
-            </div>
+            <EmptyState
+              className="p-6"
+              title="Você ainda não tem oraçoes em sua lista!"
+              content="Para adicionar orações em sua lista de orações recorrentes pasta clicar em salvar que elas irão aparecer aqui! :)"
+            />
           ) : (
             <>
               <div className="flex items-center justify-between mb-4">
