@@ -23,20 +23,23 @@ export const List = ({
     <div
       className={`container flex flex-col items-center justify-center w-full mx-auto bg-slate-950 rounded-lg shadow ${className}`}
     >
-      <div className="bg-sky-950 w-full h-[200px] p-4 flex items-center">
-        {audience !== Audience.CHURCH && (
-          <SocialHourIllustration className="w-2/3 h-full" />
-        )}
-        <div className="text-gray-100 text-center w-1/3">
-          <h3 className="text-gray-300 text-sm">
-            {audience === Audience.CHURCH ? 'Igreja' : 'Célula'}
-          </h3>
-          <span className="font-extrabold text-3xl">{title}</span>
-        </div>
-        {audience === Audience.CHURCH && (
+      {audience === Audience.CHURCH ? (
+        <div className="bg-gradient-to-r from-purple-600 to-blue-600 w-full h-[200px] p-4 flex items-center">
+          <div className="text-gray-100 text-center w-1/3">
+            <h3 className="font-extrabold text-2xl">{title}</h3>
+          </div>
           <ChurchIllustration className="w-2/3 h-full" />
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="bg-gradient-to-r from-sky-500 to-blue-600 w-full h-[200px] p-4 flex items-center">
+          <SocialHourIllustration className="w-2/3 h-full" />
+          <div className="text-gray-100 text-center w-1/3">
+            <h3 className="text-gray-300 text-sm">Célula</h3>
+            <span className="font-extrabold text-2xl">{title}</span>
+          </div>
+        </div>
+      )}
+
       {collection.length === 0 ? (
         <EmptyState
           className="mt-4 w-2/3"
@@ -44,7 +47,7 @@ export const List = ({
           content="Que tal ser o primeiro?"
         />
       ) : (
-        <ul className="flex flex-col w-full divide-y divide-gray-700">
+        <ul className="flex flex-col w-full divide-y divide-gray-700 border-gray-800 border-b-[1px]">
           {collection.map((item, index) => (
             <ListItem key={index} item={item} user={user} />
           ))}

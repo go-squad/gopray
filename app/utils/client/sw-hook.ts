@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 let isMount = true;
 
 function isPromise(p: any): boolean {
-  if (typeof p === 'object' && typeof p.then === 'function') {
+  if (!!p && typeof p === 'object' && typeof p.then === 'function') {
     return true;
   }
 

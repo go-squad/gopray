@@ -1,21 +1,28 @@
+import type { Audience, User } from '@prisma/client';
+
 export interface Prayer {
   id: string;
   body: string;
-  username: string | null | undefined;
-  givenName?: string | null | undefined;
-  surname?: string | null | undefined;
+  displayName?: string | undefined;
+  username?: string;
+  givenName?: string;
+  surname?: string;
   email?: string;
-  avatarUrl?: string | null | undefined;
+  avatarUrl?: string;
   cell?: string | null | undefined;
   avatar?: string | null | undefined;
   saved?: any;
   isSavedInPrayerList?: any;
-  createdAt: Date;
+  createdAt?: Date;
   updatedAt?: Date;
-  userId: string;
+  userId?: string;
+  mentionedId: string;
+  audience: Audience;
   cellId?: string;
-  prayingCount: number | null;
+  prayingCount?: number | null;
   prayerStats?: PrayerStats;
+  optionToggleHidden?: boolean;
+  mention?: { user: User; prayer: Prayer };
 }
 
 export interface PrayerStats {

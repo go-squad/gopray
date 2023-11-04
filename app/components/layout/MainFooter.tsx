@@ -28,7 +28,7 @@ export const MainFooter = () => {
         </div>
         <div className="flex justify-center min-w-[55px]">
           <NavLink
-            to="/new"
+            to="/motive"
             className={({ isActive, isPending }: any) =>
               `${
                 isActive ? 'active bg-orem-500 rounded w-10 h-10' : ''
