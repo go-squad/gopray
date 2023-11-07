@@ -16,7 +16,7 @@ const RandomBibleReader = ({ className }: { className?: string }) => {
   }, []);
 
   return (
-    <div className={`flex flex-col items-center ph-10 ${className}`}>
+    <div className={`flex flex-col items-center px-10 ${className}`}>
       <BookOpenIcon className="text-gray-400 w-8 mt-6" />
       <p className="p-px text-sm text-center italic text-gray-400 mt-3 mb-2">
         {passage.text}

@@ -75,16 +75,20 @@ const Profile = () => {
 
   return (
     <>
-      <TopHeader title={'Perfil'} isHome={false}>
-        <Form action="/logout" method="post">
-          <button
-            className="text-m text-sky-500 block  hover:text-white"
-            type="submit"
-          >
-            Logout
-          </button>
-        </Form>
-      </TopHeader>
+      <TopHeader
+        title={'Perfil'}
+        isHome={false}
+        end={
+          <Form action="/logout" method="post">
+            <button
+              className="text-m text-sky-500 block  hover:text-white"
+              type="submit"
+            >
+              Logout
+            </button>
+          </Form>
+        }
+      />
       <div className="h-full container p-4">
         <div className="flex justify-start items-center mb-4">
           <div className="avatar relative block mr-4">
@@ -175,7 +179,7 @@ const Profile = () => {
               name="displayName"
               id="displayName"
               defaultValue={user.displayName}
-              autoFocus={true}
+              autoFocus={false}
               autoComplete="email"
               aria-invalid={actionData?.errors?.displayName ? true : undefined}
               aria-describedby="displayName-error"
@@ -202,7 +206,7 @@ const Profile = () => {
               id="givenName"
               defaultValue={user.givenName}
               placeholder="Nome"
-              autoFocus={true}
+              autoFocus={false}
               autoComplete="email"
               aria-invalid={actionData?.errors?.givenName ? true : undefined}
               aria-describedby="givenName-error"
@@ -228,7 +232,7 @@ const Profile = () => {
               id="surname"
               defaultValue={user.surname}
               placeholder="Sobrenome"
-              autoFocus={true}
+              autoFocus={false}
               autoComplete="email"
               aria-invalid={actionData?.errors?.surname ? true : undefined}
               aria-describedby="surname-error"

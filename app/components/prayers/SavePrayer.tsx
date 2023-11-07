@@ -33,7 +33,7 @@ const SavePrayer = ({
         onClick={handleClick}
       >
         <BookmarkIcon className="h-5 w-5 mr-1" />
-        <span>Salvar</span>
+        {/* <span>Salvar</span> */}
       </button>
     </div>
   );

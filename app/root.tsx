@@ -48,10 +48,10 @@ export const ErrorBoundary = ({ error }: { error: Error }) => {
       <body className="flex justify-center items-center bg-slate-900 h-full">
         <div className="flex flex-col items-center">
           <h1 className="text-xl text-gray-200">Opps!</h1>
-          <p className="text-xs text-gray-400 mb-2">
+          <p className="text-sm text-gray-400 mb-2">
             Tente novamente mais tarde :(
           </p>
-          <Link className="text-xs text-blue-400" to="/">
+          <Link className="text-sm text-blue-400" to="/">
             <span>voltar ao início {'>'}</span>
           </Link>
         </div>
@@ -161,7 +161,7 @@ export default function App() {
           `}
         </style>
       </head>
-      <body className="bg-slate-950">
+      <body className="bg-slate-950 min-h-full">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

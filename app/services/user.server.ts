@@ -2,28 +2,39 @@
 import type { Password, User } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
-import { database } from './prisma.server';
 import { getCellById } from './cell.server';
 import { getChurch } from './church.server';
+import { database } from './prisma.server';
 
 export type { User } from '@prisma/client';
 
-export async function getUserById(id: User['id']) {
-  const userinfo = await database.user.findUnique({
-    where: { id },
-  });
+export async function getUserById(
+  id: User['id']
+): Promise<
+  (User & { cellName: string | null; churchName: string | null }) | null
+> {
+  let userinfo: User | null;
+  try {
+    userinfo = await database.user.findUnique({
+      where: { id },
+    });
 
-  const cellinfo = await getCellById(userinfo!.cellId);
+    const cellInfo = await getCellById(userinfo!.cellId);
+    const churchInfo = await getChurch({ churchId: userinfo!.churchId });
+    const combineData =
+      userinfo && cellInfo?.name && churchInfo?.name
+        ? {
+            ...userinfo,
+            cellName: cellInfo?.name,
+            churchName: churchInfo?.name,
+          }
+        : null;
 
-  const churchinfo = await getChurch({ churchId: userinfo!.churchId });
-
-  const combineData = {
-    ...userinfo,
-    cellName: cellinfo?.name,
-    churchName: churchinfo?.name,
-  };
-
-  return combineData;
+    return combineData;
+  } catch (error) {
+    console.error('error:', error);
+    return null;
+  }
 }
 
 export async function getUserByEmail(email: User['email']) {

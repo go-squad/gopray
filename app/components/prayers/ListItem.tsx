@@ -1,46 +1,65 @@
 import {
+  ArrowPathRoundedSquareIcon,
   ArrowUturnRightIcon,
-  EllipsisVerticalIcon,
 } from '@heroicons/react/24/solid';
 import type { User } from '@prisma/client';
-import { useEffect, useState } from 'react';
+import { NavLink, useFetcher } from '@remix-run/react';
 import ReactTimeAgo from 'react-time-ago';
 import type { Prayer } from '~/models/prayer.model';
-import fallback from '../../assets/images/pray.jpg';
+import Avatar from '../avatar/Avatar';
 import PrayIcon from '../icons/PrayIcon';
+import DropdownMenuDemo, { PrayerOptions } from '../menus/DropdownMenu';
+import MentionedPrayer from './MentionedPrayer';
 import SavePrayer from './SavePrayer';
 import ShowPrayerSupport from './ShowPrayerSupport';
 
 type ListItemProperties = {
-  // temp
   item: Prayer;
   user: User;
 };
 
 export const ListItem = ({ item, user }: ListItemProperties) => {
-  const [avatar, setAvatar] = useState('');
+  const fetcher = useFetcher();
 
-  useEffect(() => {
-    if (item?.avatarUrl) {
-      setAvatar(item.avatarUrl);
-    } else if (item?.givenName && item?.surname) {
-      setAvatar(`${item.givenName.charAt(0)}${item.surname.charAt(0)}`);
-    } else if (item?.username) {
-      setAvatar(`${item?.username.charAt(0)}`);
-    } else {
-      setAvatar(`${item?.email?.charAt(0)}`);
-    }
-  }, [item]);
-
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   const handleShare = () => {
-    console.log('Handeling Share Click');
+    const text = `Oi pessoal, vejam o motivo de oraçao que ${
+      item.givenName || item.username
+    } enviou no Orem recentemente: "${
+      item.body
+    }". Vamos orar por isso juntos!!? :)
+    `;
+    if (navigator.share) {
+      navigator
+        .share({
+          title: 'Pedido de Oraçao',
+          text,
+          url: 'https://app.orem.club/',
+        })
+        .then(() => console.log('Successful share'))
+        .catch(error => console.log('Error sharing', error));
+    } else {
+      const whatsappAppBAseUrl = 'https://api.whatsapp.com/send?text=';
+      window.open(`${whatsappAppBAseUrl}${text}`, '_blank');
+    }
   };
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
-  const handleOptionsClick = () => {
-    console.log('Handeling Options Click');
+  const handleOptionsClick = async (action?: PrayerOptions) => {
+    if (action === PrayerOptions.delete) {
+      fetcher.submit(
+        {
+          id: item.id,
+          body: item.body,
+          userAction: 'delete',
+        },
+        {
+          method: 'post',
+          action: '/prayers/edit-prayer',
+        }
+      );
+    }
   };
+
   return (
     <li
       className={`flex flex-col ${
@@ -61,47 +80,59 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
         >
           <div className="flex justify-between items-center mb-1">
             <div className="flex items-center">
-              <div className="h-7 w-7 avatar mr-2">
-                {item.avatarUrl ? (
-                  <img
-                    alt="profile"
-                    src={item.avatarUrl || fallback}
-                    className="mx-auto object-cover rounded-full h-7 w-7"
-                  />
-                ) : (
-                  <div className="text-base relative inline-flex items-center justify-center h-7 w-7 overflow-hidden rounded-full bg-gray-600">
-                    <span className="font-medium absolute text-gray-300">
-                      {avatar || '@'}
-                    </span>
-                  </div>
+              <Avatar
+                url={item.avatarUrl}
+                givenName={item.givenName}
+                username={item.username}
+                email={item.email}
+              />
+              <div className="flex items-center user-info  text-gray-400">
+                <b className="text-gray-300 text-base">{item.username}</b>
+                {user.id === item.userId && (
+                  <span className="ml-1 text-sm">(você)</span>
                 )}
-              </div>
-              <div className="user-info text-base text-gray-400">
-                <b className="text-gray-300">{item.username}</b>
-                {user.id === item.userId && ' (você) '} •{' '}
-                <span>célula {item.cell}</span>
+
+                <span className="mx-1">•</span>
+                <span className="text-sm"> célula {item.cell}</span>
+
+                {item.createdAt !== item.updatedAt && (
+                  <>
+                    <span className="mx-1">•</span>
+                    <em className="text-xs text-sky-500"> Editado</em>
+                  </>
+                )}
               </div>
             </div>
             <div>
-              <button
-                className="text-xs text-gray-400 flex flex-col items-center"
-                type="button"
-                onClick={() => handleOptionsClick()}
-              >
-                <EllipsisVerticalIcon className="h-5 w-5 text-gray-400" />
-              </button>
+              <DropdownMenuDemo
+                id={item.id}
+                onSelection={option => handleOptionsClick(option)}
+              />
             </div>
           </div>
           <div className="pl-9 mb-2">
             <div className={`text-base text-gray-100 mb-1`}>{item.body}</div>
-            <div className="time-ago flex items-center text-gray-400 mb-2">
-              <ReactTimeAgo
-                className="text-center text-sm"
-                timeStyle="round-minute"
-                date={new Date(item.createdAt)}
-                locale="pt-Br"
+            {/* Mentioned Prayer */}
+
+            {!!item.mention && (
+              <MentionedPrayer
+                mentionedUser={item.mention.user}
+                mentionedPrayer={item.mention.prayer}
+                currentUser={user}
               />
+            )}
+            <div className="time-ago flex items-center text-gray-400 mb-2">
+              {item.createdAt && (
+                <ReactTimeAgo
+                  className="text-center text-sm"
+                  timeStyle="round-minute"
+                  date={new Date(item.createdAt)}
+                  locale="pt-Br"
+                />
+              )}
             </div>
+
+            {/* Statistics */}
             {item?.prayingCount && item?.prayingCount > 2 && (
               <div className="praying-count flex items-start text-sm text-gray-400 ph-4 mb-2">
                 <div className="flex-1 pt-[2px]">
@@ -116,8 +147,20 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
                 </div>
               </div>
             )}
-            <div className="prayer-button pt-2 w-full mb-1 flex justify-between items-center">
-              <ShowPrayerSupport requestId={item.id} isItemSaved={item.saved} />
+            <div className="prayer-button pt-2 flex justify-start gap-x-10 items-center">
+              {user.id !== item.userId && (
+                <ShowPrayerSupport
+                  requestId={item.id}
+                  isItemSaved={item.saved}
+                />
+              )}
+
+              <NavLink
+                to={`/motive?mentionId=${item.id}`}
+                className="flex justify-center items-center"
+              >
+                <ArrowPathRoundedSquareIcon className="mb-px mr-1 h-5 w-5 fill-gray-400" />
+              </NavLink>
 
               {user.id === item.userId ? undefined : (
                 <SavePrayer
@@ -131,8 +174,7 @@ export const ListItem = ({ item, user }: ListItemProperties) => {
                 type="button"
                 onClick={() => handleShare()}
               >
-                <ArrowUturnRightIcon className="h-5 w-5 mr-1" />
-                <span>Compartilhar</span>
+                <ArrowUturnRightIcon className="h-5 w-5 mr-1 fill-gray-400" />
               </button>
             </div>
           </div>
